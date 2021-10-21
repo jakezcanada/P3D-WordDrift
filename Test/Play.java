@@ -16,4 +16,9 @@ public class Play extends Buttons
         playButton.drawString("Play", 0, 50);
         setImage(playButton);
     }
+    
+    public void act(){
+        checkMouse();
+        checkClick(new Game());
+    }
 }

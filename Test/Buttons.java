@@ -23,6 +23,12 @@ public class Buttons extends Actor
         }
     }
     
+    public void checkClick(World world){
+        if(Greenfoot.mouseClicked(this)){
+            Greenfoot.setWorld(world);
+        }
+    }
+    
     public void adjTrans(int adjust){
         GreenfootImage tempImage = getImage();
         tempImage.setTransparency(adjust);
