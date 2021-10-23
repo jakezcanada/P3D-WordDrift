@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Reader {
-    public static ArrayList<String> read(int stringLength) throws Exception {
+    public static ArrayList<String> read(int stringLength){
         ArrayList<String> arr = new ArrayList<String>();
         try{
             String url = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt";
