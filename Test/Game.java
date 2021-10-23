@@ -10,6 +10,8 @@ import java.util.Scanner;
  * @author (your name) 
  * @version (a version number or a date)
  */
+
+//feature suggestions: timed score achievement and unorthodox solution achievement
 public class Game extends World{
     class Block{
         String item;
