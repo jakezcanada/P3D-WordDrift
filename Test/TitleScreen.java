@@ -11,6 +11,9 @@ public class TitleScreen extends World
     private int option = 1;
     private int numOfOptions = 4;
     private boolean isDown = false;
+    private Pointer pL = new Pointer(getHeight()/10, 2.7, false);
+    private Pointer pR = new Pointer(getHeight()/10, 2.7, true);
+    private int[] imgWidth = new int[numOfOptions];
     /**
      * Constructor for objects of class TitleScreen.
      * 
@@ -28,15 +31,22 @@ public class TitleScreen extends World
         Picture logoPic = new Picture(logo);
         addObject(logoPic, getWidth()/2, (int) (getHeight()/4.5));
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
-        GreenfootImage playButton = new GreenfootImage("play.png");
-        GreenfootImage achievementsButton = new GreenfootImage("achievements.png");
-        GreenfootImage instructionsButton = new GreenfootImage("instructions.png");
-        GreenfootImage exitButton = new GreenfootImage("exit.png");
+        Button playButton = new Button(new GreenfootImage("play.png"), getHeight()/15, 2.5);
+        Button achievementsButton = new Button(new GreenfootImage("achievements.png"), getHeight()/15, 6.5);
+        Button instructionsButton = new Button(new GreenfootImage("instructions.png"), getHeight()/15, 6.4);
+        Button exitButton = new Button(new GreenfootImage("exit.png"), getHeight()/15, 2.4);
         
-        addObject(new Button(playButton, getHeight()/15, 2.5), getWidth()/2, getHeight()/25*12);
-        addObject(new Button(achievementsButton, getHeight()/15, 6.5), getWidth()/2, getHeight()/25*18);
-        addObject(new Button(instructionsButton, getHeight()/15, 6.4), getWidth()/2, getHeight()/25*15);
-        addObject(new Button(exitButton, getHeight()/15, 2.4), getWidth()/2, getHeight()/25*21);
+        imgWidth[0] = (int) (getHeight()/15*2.65);
+        imgWidth[1] = (int) (getHeight()/15*6.5);
+        imgWidth[2] = (int) (getHeight()/15*6.63);
+        imgWidth[3] = (int) (getHeight()/15*2.51);
+        
+        addObject(playButton, getWidth()/2, getHeight()/25*12);
+        addObject(achievementsButton, getWidth()/2, getHeight()/25*18);
+        addObject(instructionsButton, getWidth()/2, getHeight()/25*15);
+        addObject(exitButton, getWidth()/2, getHeight()/25*21);
+        addObject(pL, getWidth()/2, getHeight()/25*12);
+        addObject(pR, getWidth()/2, getHeight()/25*12);
     }
     
     public void act(){
@@ -61,7 +71,7 @@ public class TitleScreen extends World
                         // set world instructions
                         break;
                     case 4: // Exit
-                        // Terminate
+                        Greenfoot.stop();
                         break;
                 }
             }
@@ -69,6 +79,9 @@ public class TitleScreen extends World
         }else if(!(Greenfoot.isKeyDown("UP") || Greenfoot.isKeyDown("DOWN") || Greenfoot.isKeyDown("ENTER")) && isDown){
             isDown = false;
         }
-            
+        
+        pL.setLocation((getWidth()/2) - (imgWidth[option-1]/2) - (pL.getWidth()/2), getHeight()/25*9 + (getHeight()/25*3 * option));
+        pR.setLocation((getWidth()/2) + (imgWidth[option-1]/2) + (pL.getWidth()/2), getHeight()/25*9 + (getHeight()/25*3 * option));
+        
     }
 }
