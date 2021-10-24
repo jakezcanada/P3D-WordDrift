@@ -17,27 +17,31 @@ public class Game extends World{
         String item;
         Boolean solved;
     }
+    // State board "size"
+    private int wordLength = 4;
+    private int numOfWords = 5;
+    // Create the game board
+    private ArrayList<String> words = Reader.read(wordLength);
+    private ArrayList<ArrayList<Block>> board = createBoard(wordLength, numOfWords, words);
+    // selected will keep track of which Block is selected in each column
+    private int[] selected = new int[wordLength];
+    // selectedColumn will keep track of, who could've guesses, the selected column...
+    private int selectedColumn = 0;
     public Game(){    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1);
-        // State board "size"
-        int wordLength = 4;
-        int numOfWords = 5;
-        // Fetch words from the Reader class and randomize the words
-        ArrayList<String> words = Reader.read(wordLength);
+        // Randomize words
         Collections.shuffle(words);
-        // Create the game board
-        ArrayList<ArrayList<Block>> board = createBoard(wordLength, numOfWords, words);
         // Randomize each columns' order
         for(ArrayList<Block> s : board){
             Collections.shuffle(board);
         }
-        // selected will keep track of which Block is selected in each column
-        int[] selected = new int[wordLength];
+        //fill selected with 0
         Arrays.fill(selected, 0);
-        // selectedColumn will keep track of, who could've guesses, the selected column...
-        int selectedColumn = 0;
-        // navigation operations
+    }
+    
+    public void act(){
+        // Nav operations
         if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
             selectedColumn++;
         }else if(Greenfoot.isKeyDown("left") && selectedColumn > 0){
@@ -59,10 +63,6 @@ public class Game extends World{
                 }
             }
         }
-
-        
-        
-        
     }
     
     public ArrayList<ArrayList<Block>> createBoard(int wordLength, int numOfWords, ArrayList<String> words){
