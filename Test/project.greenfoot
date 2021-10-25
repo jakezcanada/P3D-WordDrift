@@ -25,19 +25,11 @@ dependency6.type=UsesDependency
 dependency7.from=TitleScreen
 dependency7.to=Instructions
 dependency7.type=UsesDependency
-<<<<<<< HEAD
 editor.fx.0.height=0
 editor.fx.0.width=0
 editor.fx.0.x=0
 editor.fx.0.y=0
 height=1096
-=======
-editor.fx.0.height=739
-editor.fx.0.width=816
-editor.fx.0.x=1048
-editor.fx.0.y=143
-height=1056
->>>>>>> 916f6356c42ceffc1281f2603fee4ffa97102b41
 package.numDependencies=7
 package.numTargets=9
 project.charset=UTF-8
