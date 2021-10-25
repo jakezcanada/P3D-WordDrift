@@ -14,6 +14,10 @@ public class TitleScreen extends World
     private Pointer pL = new Pointer(getHeight()/10, 2.7, false);
     private Pointer pR = new Pointer(getHeight()/10, 2.7, true);
     private int[] imgWidth = new int[numOfOptions];
+    
+    public static GreenfootSound bgm = new GreenfootSound("cantfindgoodmusic.mp3");
+    public Button musicOn = new Button(new GreenfootImage("musicon.png"), getHeight()/15, 2);
+    public Button musicOff = new Button(new GreenfootImage("musicoff.png"), getHeight()/15, 2);
     /**
      * Constructor for objects of class TitleScreen.
      * 
@@ -30,6 +34,7 @@ public class TitleScreen extends World
         logo.scale(getHeight()/3, getHeight()/5);
         Picture logoPic = new Picture(logo);
         addObject(logoPic, getWidth()/2, (int) (getHeight()/4.5));
+        bgm.playLoop();
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
         Button playButton = new Button(new GreenfootImage("play.png"), getHeight()/15, 2.5);
         Button achievementsButton = new Button(new GreenfootImage("achievements.png"), getHeight()/15, 6.5);
@@ -47,6 +52,8 @@ public class TitleScreen extends World
         addObject(exitButton, getWidth()/2, getHeight()/25*21);
         addObject(pL, getWidth()/2, getHeight()/25*12);
         addObject(pR, getWidth()/2, getHeight()/25*12);
+        addObject(musicOn, 1100, 100);
+        
     }
     
     public void act(){
@@ -83,5 +90,15 @@ public class TitleScreen extends World
         pL.setLocation((getWidth()/2) - (imgWidth[option-1]/2) - (pL.getWidth()/2), getHeight()/25*9 + (getHeight()/25*3 * option));
         pR.setLocation((getWidth()/2) + (imgWidth[option-1]/2) + (pL.getWidth()/2), getHeight()/25*9 + (getHeight()/25*3 * option));
         
+        if(Greenfoot.mouseClicked(musicOn)){
+            bgm.pause();
+            addObject(musicOff, 1100, 100);
+            removeObject(musicOn);
+        }
+        if(Greenfoot.mouseClicked(musicOff)){
+            bgm.playLoop();
+            addObject(musicOn, 1100, 100);
+            removeObject(musicOff);
+        }
     }
 }
