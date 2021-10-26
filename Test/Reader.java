@@ -8,8 +8,7 @@ public class Reader {
         try{
             String url = "https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt";
             URL wordsURL = new URL(url);
-            BufferedReader in = new BufferedReader(
-            new InputStreamReader(wordsURL.openStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(wordsURL.openStream()));
             String inputLine;
             // If the word has the correct length and isn't already contained in the array, add it
             while ((inputLine = in.readLine()) != null)

@@ -8,14 +8,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Button extends Actor
 {
-    public Button(String text, int fontSize){
+    public Button(String text, int fontSize, Color color){
         GreenfootImage playButton = new GreenfootImage(fontSize*2, fontSize*2);
         Font adjustedFont = new Font(true, false, fontSize);
         playButton.setFont(adjustedFont);
+        playButton.setColor(color);
+        playButton.fill();
         playButton.setColor(Color.BLACK);
         playButton.drawString(text, 0, fontSize);
-        //setImage(playButton);
-        setImage(new GreenfootImage(""+text, fontSize, Color.BLACK, new Color(0, 0, 0, 0)));
+
+        setImage(playButton);
+        //setImage(new GreenfootImage(""+text, fontSize, Color.BLACK, new Color(0, 0, 0, 0)));
     }
     
     public Button(GreenfootImage img, int height, double widthMulti){

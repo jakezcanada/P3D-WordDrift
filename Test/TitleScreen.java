@@ -34,7 +34,7 @@ public class TitleScreen extends World
         logo.scale(getHeight()/3, getHeight()/5);
         Picture logoPic = new Picture(logo);
         addObject(logoPic, getWidth()/2, (int) (getHeight()/4.5));
-        bgm.playLoop();
+        //bgm.playLoop();
         bgm.pause();
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
         Button playButton = new Button(new GreenfootImage("play.png"), getHeight()/15, 2.5);
