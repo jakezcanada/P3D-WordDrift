@@ -35,6 +35,7 @@ public class TitleScreen extends World
         Picture logoPic = new Picture(logo);
         addObject(logoPic, getWidth()/2, (int) (getHeight()/4.5));
         bgm.playLoop();
+        bgm.pause();
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
         Button playButton = new Button(new GreenfootImage("play.png"), getHeight()/15, 2.5);
         Button achievementsButton = new Button(new GreenfootImage("achievements.png"), getHeight()/15, 6.5);
@@ -52,21 +53,21 @@ public class TitleScreen extends World
         addObject(exitButton, getWidth()/2, getHeight()/25*21);
         addObject(pL, getWidth()/2, getHeight()/25*12);
         addObject(pR, getWidth()/2, getHeight()/25*12);
-        addObject(musicOn, 1100, 100);
+        addObject(musicOff, 1100, 100);
         
     }
     
     public void act(){
-        if((Greenfoot.isKeyDown("UP") || Greenfoot.isKeyDown("DOWN") || Greenfoot.isKeyDown("ENTER")) && !isDown){
-            if(Greenfoot.isKeyDown("UP") && option==1){
+        if((Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && !isDown){
+            if(Greenfoot.isKeyDown("up") && option==1){
                 option = numOfOptions;
-            }else if(Greenfoot.isKeyDown("DOWN") && option==numOfOptions){
+            }else if(Greenfoot.isKeyDown("down") && option==numOfOptions){
                 option = 1;
-            }else if(Greenfoot.isKeyDown("UP")){
+            }else if(Greenfoot.isKeyDown("up")){
                 option--;
-            }else if(Greenfoot.isKeyDown("DOWN")){
+            }else if(Greenfoot.isKeyDown("down")){
                 option++;
-            }else if(Greenfoot.isKeyDown("ENTER")){
+            }else if(Greenfoot.isKeyDown("enter")){
                 switch(option){
                     case 1: // Play
                         Greenfoot.setWorld(new Game());
@@ -83,7 +84,7 @@ public class TitleScreen extends World
                 }
             }
             isDown = true;
-        }else if(!(Greenfoot.isKeyDown("UP") || Greenfoot.isKeyDown("DOWN") || Greenfoot.isKeyDown("ENTER")) && isDown){
+        }else if(!(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && isDown){
             isDown = false;
         }
         
