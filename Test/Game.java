@@ -1,4 +1,4 @@
-    import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 import java.io.File;
 import java.io.IOException;
@@ -34,9 +34,17 @@ public class Game extends World{
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1);
         // Fill selected with 0
-        Arrays.fill(selected, 0);
+        for(int i = 0; i < selected.length; i++){
+            
+        }
         // Draw board
         drawBoard();
+        String selectedStr = selectedString(board, selected);
+        if(words.contains(selectedStr)){
+            for(int i = 0; i < selected.length; i++){
+                board.get(i).get(selected[i]).solved = true;
+            }
+        }
     }
     
     public void act(){
