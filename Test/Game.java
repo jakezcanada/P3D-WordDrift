@@ -23,6 +23,11 @@ public class Game extends World{
     // Word length size is max at 23
     private int wordLength;
     private int numOfWords;
+    // Counter
+    public static Counter counter = new Counter();
+    // ArrayList of solved words
+    private ArrayList<String> solvedwords = new ArrayList<String>();
+    // Word length size is max at 14
     private boolean isDown = false;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -73,9 +78,15 @@ public class Game extends World{
         drawBoard();
         String selectedStr = selectedString(board, selected);
         if(words.contains(selectedStr)){
+            if(!solvedwords.contains(selectedStr)){
+                TitleScreen.click.play();
+                counter.addWord();
+            }    
+            solvedwords.add(selectedStr);
             for(int i = 0; i < selected.length; i++){
                 board.get(i).get(selected[i]).solved = true;
             }
+            checkAchievements();
         }
     }
     
@@ -94,9 +105,15 @@ public class Game extends World{
                 selected[selectedColumn]++;
                 String selectedStr = selectedString(board, selected);
                 if(words.contains(selectedStr)){
+                    if(!solvedwords.contains(selectedStr)){
+                        TitleScreen.click.play();
+                        counter.addWord();
+                    }    
+                    solvedwords.add(selectedStr);
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
+                    checkAchievements();
                 }
                 List objects = getObjects(null);
                 removeObjects(objects);
@@ -109,9 +126,15 @@ public class Game extends World{
                 selected[selectedColumn]--;
                 String selectedStr = selectedString(board, selected);
                 if(words.contains(selectedStr)){
+                    if(!solvedwords.contains(selectedStr)){
+                        TitleScreen.click.play();
+                        counter.addWord();
+                    }    
+                    solvedwords.add(selectedStr);
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
+                    checkAchievements();
                 }
                 //temp way to remove objects, kill me
                 List objects = getObjects(null);
@@ -235,4 +258,14 @@ public class Game extends World{
         return true;
     }
     
+    public void checkAchievements(){
+        int w = counter.getScore();
+        if(w == 5 || w == 10 || w == 20 || w == 30 || w == 50){
+            GreenfootImage img = new GreenfootImage("You've solved " + w + " words and unlocked a new achievement!",40,Color.WHITE,Color.BLACK);
+            Picture p = new Picture(img);
+            addObject(p, 640, 320);
+            Greenfoot.delay(180);
+            removeObject(p);
+        }
+    }
 }
