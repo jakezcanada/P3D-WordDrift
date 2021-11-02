@@ -80,7 +80,7 @@ public class Game extends World{
         if(words.contains(selectedStr)){
             if(!solvedwords.contains(selectedStr)){
                 TitleScreen.click.play();
-                counter.addWord();
+                counter.add();
             }    
             solvedwords.add(selectedStr);
             for(int i = 0; i < selected.length; i++){
@@ -91,8 +91,11 @@ public class Game extends World{
     }
     
     public void act(){
+        // Add counter
+        addObject(counter, 1080, 100);
         // Nav operations
         if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && !isDown){
+            TitleScreen.cursor.play();
             if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
                 selectedColumn++;
                 //System.out.println(Arrays.toString(selected));
@@ -107,7 +110,7 @@ public class Game extends World{
                 if(words.contains(selectedStr)){
                     if(!solvedwords.contains(selectedStr)){
                         TitleScreen.click.play();
-                        counter.addWord();
+                        counter.add();
                     }    
                     solvedwords.add(selectedStr);
                     for(int i = 0; i < selected.length; i++){
@@ -128,7 +131,7 @@ public class Game extends World{
                 if(words.contains(selectedStr)){
                     if(!solvedwords.contains(selectedStr)){
                         TitleScreen.click.play();
-                        counter.addWord();
+                        counter.add();
                     }    
                     solvedwords.add(selectedStr);
                     for(int i = 0; i < selected.length; i++){
