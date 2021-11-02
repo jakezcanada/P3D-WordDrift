@@ -23,8 +23,9 @@ public class Game extends World{
     // Word length size is max at 23
     private int wordLength;
     private int numOfWords;
-    // Counter
+    // Word Counter and Board Counter
     public static Counter counter = new Counter();
+    public static Counter boardCounter = new Counter();
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
     // Word length size is max at 14
@@ -145,6 +146,7 @@ public class Game extends World{
                 drawBoard();
                 // Send back to home screen after game completion
                 if(checkBoard()){
+                    boardCounter.add();
                     Greenfoot.setWorld(new TitleScreen());
                 }
             }
