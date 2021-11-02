@@ -6,7 +6,7 @@ public class Reader {
     public static ArrayList<String> read(int stringLength){
         ArrayList<String> arr = new ArrayList<String>();
         try{
-            String url = "https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt";
+            String url = "http://www.mieliestronk.com/corncob_caps.txt";
             URL wordsURL = new URL(url);
             BufferedReader in = new BufferedReader(new InputStreamReader(wordsURL.openStream()));
             String inputLine;

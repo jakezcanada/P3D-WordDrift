@@ -13,30 +13,62 @@ import java.util.Scanner;
 
 //feature suggestions: timed score achievement and unorthodox solution achievement
 public class Game extends World{
+    
+    // Inner class to store the properties of each tile/block
     class Block{
         String item;
         Boolean solved;
     }
-    // State board "size"
-    // Word length size is max at 14
-    private int wordLength = 8;
-    private int numOfWords = 3;
+    
+    // Word length size is max at 23
+    private int wordLength;
+    private int numOfWords;
     private boolean isDown = false;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
-    private int[] selected = new int[wordLength];
+    private int[] selected;
     // Create the game board
-    private ArrayList<String> words = Reader.read(wordLength);
-    private ArrayList<ArrayList<Block>> board = createBoard();
+    private ArrayList<String> words;
+    private ArrayList<ArrayList<Block>> board;
     // selectedColumn will keep track of, who could've guesses, the selected column...
     private int selectedColumn = 0;
     public Game(){    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1);
+        
+        // Ask user for word length
+        while(true){
+            String input = Greenfoot.ask("How long would you like the words to be? (1 - 23 characters)");
+            if(isNumeric(input)){
+                int temp = (int) Double.parseDouble(input);
+                if(temp > 1 && temp < 24){
+                    wordLength = temp;
+                    break;
+                }
+            }
+        }
+        
+        // Ask user for num of words
+        while(true){
+            //if there are not enough words, there will be as many as possible
+            String input = Greenfoot.ask("How many words would you like? (under 8 is recommended)");
+            if(isNumeric(input)){
+                int temp = (int) Double.parseDouble(input);
+                numOfWords = temp;
+                break;
+            }
+        }
+        
+        // Initialize variables
+        words = Reader.read(wordLength);
+        selected = new int[wordLength];
+        board = createBoard();
+        
         // Fill selected with 0
         for(int i = 0; i < selected.length; i++){
             selected[i] = r.nextInt(board.get(i).size());
         }
+        
         // Draw board
         drawBoard();
         String selectedStr = selectedString(board, selected);
@@ -146,7 +178,7 @@ public class Game extends World{
         return board2;
     }
     
-    // oo oo a a draw board here
+    // Draw the board
     public void drawBoard(){
         int blockSize = (wordLength%2 == 0) ? getWidth()/14 : getWidth()/15;
         int offSet = (getWidth() - (blockSize*wordLength))/2;
@@ -172,12 +204,23 @@ public class Game extends World{
 
     }
     
+    // Get the selected String
     public String selectedString(ArrayList<ArrayList<Block>> board, int[] selected){
         String selectedString = "";
         for(int i = 0; i < selected.length; i++){
             selectedString += board.get(i).get(selected[i]).item;
         }
         return selectedString;
+    }
+    
+    // Check if String is a number
+    public static boolean isNumeric(String str) { 
+        try {  
+            Double.parseDouble(str);  
+            return true;
+        } catch(NumberFormatException e){  
+            return false;
+        }
     }
     
     // Check if the current board is fully "solved"
