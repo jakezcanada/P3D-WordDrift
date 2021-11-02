@@ -13,10 +13,10 @@ public class TitleScreen extends World
     private boolean isDown = false;
     private int[] imgWidth = new int[numOfOptions];
     
-    private Button playButton = new Button(new GreenfootImage("play.png"), getHeight()/3, 4);
-    private Button achievementsButton = new Button(new GreenfootImage("achievements.png"), getHeight()/15, 6.5);
-    private Button instructionsButton = new Button(new GreenfootImage("instructions.png"), getHeight()/15, 6.4);
-    private Button exitButton = new Button(new GreenfootImage("exit.png"), getHeight()/15, 2.4);
+    private Button playButton = new Button(new GreenfootImage("PlayButton-1.png"), getHeight()/3, 4);
+    private Button achievementsButton = new Button(new GreenfootImage("AchievementsButton-1.png"), getHeight()/9, 3.8);
+    private Button instructionsButton = new Button(new GreenfootImage("InstructionsButton-1.png"), getHeight()/9, 3.8);
+    private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
     
     
     private static GreenfootSound bgm = new GreenfootSound("cantfindgoodmusic.mp3");
@@ -34,10 +34,8 @@ public class TitleScreen extends World
     }
     
     private void prepare(){
-        GreenfootImage logo = new GreenfootImage("Logo.png");
-        logo.scale(getHeight()/3, getHeight()/5);
-        Picture logoPic = new Picture(logo);
-        addObject(logoPic, getWidth()/2, (int) (getHeight()/4.5));
+        Button logo = new Button(new GreenfootImage("WordDrift Logo.png"), getHeight()/5, 3.272);
+        addObject(logo, getWidth()/2 - 20, (int) (getHeight()/5));
         //bgm.playLoop();
         bgm.pause();
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
@@ -45,17 +43,27 @@ public class TitleScreen extends World
     }
     
     public void draw(){
+        removeObject(playButton);
+        removeObject(achievementsButton);
+        removeObject(instructionsButton);
+        removeObject(exitButton);
+        
+        playButton = new Button(new GreenfootImage("PlayButton" + ((option == 1 ) ? "-2" : "-1") + ".png"), getHeight()/3, 4);
+        achievementsButton = new Button(new GreenfootImage("AchievementsButton" + ((option == 2 ) ? "-2" : "-1") + ".png"), getHeight()/9, 3.8);
+        instructionsButton = new Button(new GreenfootImage("InstructionsButton" + ((option == 3 ) ? "-2" : "-1") + ".png"), getHeight()/9, 3.8);
+        exitButton = new Button(new GreenfootImage("ExitButton" + ((option == 4 ) ? "-2" : "-1") + ".png"), getHeight()/9, 3.8);
+        
         addObject(playButton, getWidth()/2, getHeight()/2);
-        addObject(achievementsButton, getWidth()/4, getHeight()*3/4);
-        addObject(instructionsButton, getWidth()/2, getHeight()*3/4);
-        addObject(exitButton, getWidth()*3/4, getHeight()*3/4);
+        addObject(achievementsButton, getWidth()/5, getHeight()*4/5);
+        addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
+        addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
     }
     
     public void act(){
-        if((Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && !isDown){
+        if((Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && !isDown){
             if(option == 1){
-                if(Greenfoot.isKeyDown("down") && option==numOfOptions){
-                option = 1;
+                if(Greenfoot.isKeyDown("down")){
+                    option = 2;
                 }
             }else{
                 if(Greenfoot.isKeyDown("up")){
@@ -88,7 +96,9 @@ public class TitleScreen extends World
                 }
             }
             isDown = true;
-        }else if(!(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && isDown){
+            System.out.println(option);
+            draw();
+        }else if(!(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && isDown){
             isDown = false;
         }
         if(Greenfoot.mouseClicked(musicOn)){

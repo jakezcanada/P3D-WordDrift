@@ -16,6 +16,7 @@ public class Instructions extends World
     public Instructions()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(1280, 720, 1);
+        addObject(new Button(new GreenfootImage("ExitButton-2.png"), getHeight()/3, 4), getWidth()/2, getHeight()*4/5);
     }
 }
