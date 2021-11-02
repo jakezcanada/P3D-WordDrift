@@ -21,8 +21,6 @@ public class Game extends World{
     private int wordLength = 5;
     private int numOfWords = 4;
     private boolean isDown = false;
-    private Color solved = new Color(200, 200, 200);
-    private Color unsolved = new Color(150, 150, 150);
     // selected will keep track of which Block is selected in each column
     private int[] selected = new int[wordLength];
     // Create the game board
@@ -154,22 +152,16 @@ public class Game extends World{
         boolean toggle = false;
         for(int i = 0; i < selected.length; i++){
             int x = offSet+(blockSize*i);
-            if(i == selectedColumn){
-                solved = solved.brighter();
-                unsolved = unsolved.brighter();
-                toggle = true;
-            }
-            addObject(new Button(board.get(i).get(selected[i]).item, blockSize/2, board.get(i).get(selected[i]).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2);
+            String prefix1 = "S" + (board.get(i).get(selected[i]).solved ? "S" : "U");
+            //addObject(new Button(board.get(i).get(selected[i]).item, blockSize/2, board.get(i).get(selected[i]).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2);
+            addObject(new Button(new GreenfootImage(prefix1 + "_" + (board.get(i).get(selected[i]).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2);
             for(int j = selected[i]-1; j > -1; j--){
-                addObject(new Button(board.get(i).get(j).item, blockSize/2, board.get(i).get(j).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2 - blockSize*(selected[i]-j));
+                String prefix = "U" + (board.get(i).get(j).solved ? "S" : "U");
+                addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2 - blockSize*(selected[i]-j));
             }
             for(int j = selected[i]+1; j < board.get(i).size(); j++){
-                addObject(new Button(board.get(i).get(j).item, blockSize/2, board.get(i).get(j).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2 + blockSize*(j-selected[i]));
-            }
-            if(toggle){
-                solved = solved.darker();
-                unsolved = unsolved.darker();
-                toggle = false;
+                String prefix = "U" + (board.get(i).get(j).solved ? "S" : "U");
+                addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2 + blockSize*(j-selected[i]));
             }
         }
 
