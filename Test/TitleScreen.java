@@ -96,7 +96,6 @@ public class TitleScreen extends World
                 }
             }
             isDown = true;
-            System.out.println(option);
             draw();
         }else if(!(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && isDown){
             isDown = false;

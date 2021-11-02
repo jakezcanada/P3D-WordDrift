@@ -18,9 +18,10 @@ public class Game extends World{
         Boolean solved;
     }
     // State board "size"
-    private int wordLength = 5;
-    private int numOfWords = 4;
+    private int wordLength = 4;
+    private int numOfWords = 3;
     private boolean isDown = false;
+    private Random r = new Random();
     // selected will keep track of which Block is selected in each column
     private int[] selected = new int[wordLength];
     // Create the game board
@@ -33,7 +34,7 @@ public class Game extends World{
         super(1280, 720, 1);
         // Fill selected with 0
         for(int i = 0; i < selected.length; i++){
-            
+            selected[i] = r.nextInt(board.get(i).size());
         }
         // Draw board
         drawBoard();
@@ -97,7 +98,6 @@ public class Game extends World{
     
     public ArrayList<ArrayList<Block>> createBoard(){
         // Create all new ArrayLists
-        Random r = new Random();
         ArrayList<ArrayList<String>> boardTemp = new ArrayList<ArrayList<String>>();
         for(int i = 0; i < wordLength; i++){
             ArrayList<String> temp = new ArrayList<String>();
