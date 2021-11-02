@@ -18,7 +18,8 @@ public class Game extends World{
         Boolean solved;
     }
     // State board "size"
-    private int wordLength = 4;
+    // Word length size is max at 14
+    private int wordLength = 8;
     private int numOfWords = 3;
     private boolean isDown = false;
     private Random r = new Random();
@@ -147,8 +148,12 @@ public class Game extends World{
     
     // oo oo a a draw board here
     public void drawBoard(){
-        int blockSize = getWidth()/15;
+        int blockSize = (wordLength%2 == 0) ? getWidth()/14 : getWidth()/15;
         int offSet = (getWidth() - (blockSize*wordLength))/2;
+        if(wordLength > 13){
+            offSet = getWidth()/(wordLength+2) + (getWidth()/(wordLength+2))/2;
+            blockSize = getWidth()/(wordLength+2);
+        }
         boolean toggle = false;
         for(int i = 0; i < selected.length; i++){
             int x = offSet+(blockSize*i);
