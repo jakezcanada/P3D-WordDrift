@@ -59,6 +59,7 @@ public class TitleScreen extends World
         addObject(achievementsButton, getWidth()/5, getHeight()*4/5);
         addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
         addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
+        addObject(musicOff, 1100, 100);
     }
     
     public void act(){
