@@ -22,8 +22,8 @@ public class TitleScreen extends World
     private static GreenfootSound bgm = new GreenfootSound("cantfindgoodmusic.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public static GreenfootSound click = new GreenfootSound("Click.mp3");
-    private Button musicOn = new Button(new GreenfootImage("musicon.png"), getHeight()/15, 2);
-    private Button musicOff = new Button(new GreenfootImage("musicoff.png"), getHeight()/15, 2);
+    private Button musicOn = new Button(new GreenfootImage("SoundOn.png"), getHeight()/10, 1);
+    private Button musicOff = new Button(new GreenfootImage("SoundOff.png"), getHeight()/10, 1);
     /**
      * Constructor for objects of class TitleScreen.
      * 
