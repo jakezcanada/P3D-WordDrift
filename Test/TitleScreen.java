@@ -20,6 +20,8 @@ public class TitleScreen extends World
     
     
     private static GreenfootSound bgm = new GreenfootSound("cantfindgoodmusic.mp3");
+    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
+    public static GreenfootSound click = new GreenfootSound("Click.mp3");
     private Button musicOn = new Button(new GreenfootImage("musicon.png"), getHeight()/15, 2);
     private Button musicOff = new Button(new GreenfootImage("musicoff.png"), getHeight()/15, 2);
     /**
@@ -63,23 +65,28 @@ public class TitleScreen extends World
         if((Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && !isDown){
             if(option == 1){
                 if(Greenfoot.isKeyDown("down")){
+                    cursor.play();
                     option = 2;
                 }
             }else{
                 if(Greenfoot.isKeyDown("up")){
+                    cursor.play();
                     option = 1;
                 }else if(Greenfoot.isKeyDown("left") && option == 2){
                     option = 4;
                 }else if(Greenfoot.isKeyDown("right") && option == numOfOptions){
                     option = 2;
                 }else if(Greenfoot.isKeyDown("left")){
+                    cursor.play();
                     option--;
                 }else if(Greenfoot.isKeyDown("right")){
+                    cursor.play();
                     option++;
                 }
             }
              
             if(Greenfoot.isKeyDown("enter")){
+                click.play();
                 switch(option){
                     case 1: // Play
                         Greenfoot.setWorld(new Game());
