@@ -14,12 +14,13 @@ public class Achievements extends World
      * Constructor for objects of class Achievements.
      * 
      */
+    private Button exitAchievementsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15   , 3.8);
+
    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public Achievements()
     {    
         super(1280, 720, 1, false);
-        Button exitInstructionsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15   , 3.8);
-        addObject(exitInstructionsButton, getWidth()/2, getHeight()*9/10);
+        addObject(exitAchievementsButton, getWidth()/2, getHeight()*9/10);
         prepare();
     }
     
@@ -45,6 +46,9 @@ public class Achievements extends World
     }
     public void act(){
         if(Greenfoot.isKeyDown("enter")) {
+            cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
+        } else if (Greenfoot.mouseClicked(exitAchievementsButton)){
             cursor.play();
             Greenfoot.setWorld(new TitleScreen());
         }
