@@ -59,7 +59,7 @@ public class TitleScreen extends World
         addObject(achievementsButton, getWidth()/5, getHeight()*4/5);
         addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
         addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
-        addObject(musicOff, 1100, 100);
+        addObject(musicOff, 1150, 100);
     }
     
     public void act(){
@@ -110,12 +110,12 @@ public class TitleScreen extends World
         }
         if(Greenfoot.mouseClicked(musicOn)){
             bgm.pause();
-            addObject(musicOff, 1100, 100);
+            addObject(musicOff, 1150, 100);
             removeObject(musicOn);
         }
         if(Greenfoot.mouseClicked(musicOff)){
             bgm.playLoop();
-            addObject(musicOn, 1100, 100);
+            addObject(musicOn, 1150, 100);
             removeObject(musicOff);
         }
     }
