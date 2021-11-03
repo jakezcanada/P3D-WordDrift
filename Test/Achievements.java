@@ -31,14 +31,14 @@ public class Achievements extends World
         if(map.isEmpty()){
             String str = "You do not have any achievements yet :(";
             GreenfootImage im = new GreenfootImage(str,60,Color.WHITE,Color.BLACK);
-            Picture im1 = new Picture(im);
+            Picture im1 = new Picture(im,false);
             addObject(im1, 640, 320);
         }
         for(String key: map.keySet()){
             GreenfootImage im = new GreenfootImage(key,60,Color.WHITE,Color.BLACK);
             GreenfootImage img = map.get(key);
-            Picture im1 = new Picture(im);
-            Picture img1 = new Picture(img);
+            Picture im1 = new Picture(im,false);
+            Picture img1 = new Picture(img,false);
             addObject(im1,width,height);
             addObject(img1,width+200,height);
             height += 120;
