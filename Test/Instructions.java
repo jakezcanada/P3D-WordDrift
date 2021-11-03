@@ -14,6 +14,8 @@ public class Instructions extends World
      * 
      */
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
+    private Button exitInstructionsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
+
     public Instructions()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -25,6 +27,9 @@ public class Instructions extends World
     
     public void act(){
         if(Greenfoot.isKeyDown("enter")) {
+            cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
+        } else if (Greenfoot.mouseClicked(exitInstructionsButton)){
             cursor.play();
             Greenfoot.setWorld(new TitleScreen());
         }

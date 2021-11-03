@@ -275,7 +275,7 @@ public class Game extends World{
             GreenfootImage img = new GreenfootImage("You've solved " + w + " words and unlocked a new achievement!",40,Color.WHITE,Color.BLACK);
             Picture p = new Picture(img);
             addObject(p, 640, 320);
-            p.setDelay(180);
+            
         }
     }
 }

@@ -8,27 +8,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Picture extends Actor
 {
-    private int delayCount;
+    SimpleTimer timer = new SimpleTimer();
+    
     public Picture(GreenfootImage myImage){
         setImage(myImage);
+        timer.mark();
     }
-    
+
     public void act(){
-        if (paused()){
-            if(--delayCount == 0){
-                getWorld().removeObject(this);
-            }    
-            return;
+        if (timer.millisElapsed() > 3000){
+            getWorld().removeObject(this);
         }
     }    
-    
-    public boolean paused()
-    {
-        return delayCount > 0;
-    }
- 
-    public void setDelay(int actCount)
-    {
-        delayCount = actCount;
-    }
+
 }
