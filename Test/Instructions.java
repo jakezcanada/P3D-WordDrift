@@ -13,6 +13,7 @@ public class Instructions extends World
      * Constructor for objects of class Instructions.
      * 
      */
+    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public Instructions()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -24,7 +25,7 @@ public class Instructions extends World
     
     public void act(){
         if(Greenfoot.isKeyDown("enter")) {
-
+            cursor.play();
             Greenfoot.setWorld(new TitleScreen());
         }
     }
