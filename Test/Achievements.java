@@ -14,9 +14,12 @@ public class Achievements extends World
      * Constructor for objects of class Achievements.
      * 
      */
+   public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public Achievements()
     {    
         super(1280, 720, 1, false);
+        Button exitInstructionsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15   , 3.8);
+        addObject(exitInstructionsButton, getWidth()/2, getHeight()*9/10);
         prepare();
     }
     
@@ -40,6 +43,12 @@ public class Achievements extends World
             height += 120;
         }
     }
+    public void act(){
+        if(Greenfoot.isKeyDown("enter")) {
+            cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
+        }
+    }
     
     public void addAchievements(){
         int i = Game.counter.getScore();
@@ -59,4 +68,5 @@ public class Achievements extends World
             map.put("Word Lord", new GreenfootImage("a5.png"));
         }
     }
+    
 }
