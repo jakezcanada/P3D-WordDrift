@@ -1,9 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
+import java.lang.Math.*;
 /**
  * Write a description of class Game here.
  * 
@@ -28,7 +25,6 @@ public class Game extends World{
     public static Counter boardCounter = new Counter();
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
-    // Word length size is max at 14
     private boolean isDown = false;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -79,7 +75,6 @@ public class Game extends World{
         }
 
         // Draw board
-        drawBoard();
         String selectedStr = selectedString(board, selected);
         if(words.contains(selectedStr)){
             if(!solvedwords.contains(selectedStr)){
@@ -92,6 +87,7 @@ public class Game extends World{
             }
             checkAchievements();
         }
+        drawBoard();
     }
 
     public void act(){
@@ -157,7 +153,6 @@ public class Game extends World{
         }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
             isDown = false;
         }
-        //draw everything here eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     }
 
     public ArrayList<ArrayList<Block>> createBoard(){
@@ -212,7 +207,7 @@ public class Game extends World{
     // Draw the board
     public void drawBoard(){
         int blockSize = (wordLength%2 == 0) ? getWidth()/14 : getWidth()/15;
-        int offSet = (getWidth() - (blockSize*wordLength))/2;
+        int offSet = ((getWidth() - (blockSize*wordLength))/2) + (blockSize/2);
         if(wordLength > 13){
             offSet = getWidth()/(wordLength+2) + (getWidth()/(wordLength+2))/2;
             blockSize = getWidth()/(wordLength+2);
@@ -224,22 +219,20 @@ public class Game extends World{
             //addObject(new Button(board.get(i).get(selected[i]).item, blockSize/2, board.get(i).get(selected[i]).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2);
             
             int px = offSet+blockSize*i;
-            int pty = 0;
-            int pby = 0;
-            addObject(new Button(new GreenfootImage(prefix1 + "_" + (board.get(i).get(selected[i]).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2);
+            addObject(new Button(new GreenfootImage(prefix1 + "_" + (board.get(i).get(selected[i]).item.toUpperCase()) + ".png"), blockSize, 1), px, getHeight()/2);
             for(int j = selected[i]-1; j > -1; j--){
                 String prefix = "U" + (board.get(i).get(j).solved ? "S" : "U");
-                addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2 - blockSize*(selected[i]-j));
-                if(j == 0 && i == selectedColumn){
-                    addObject(new Button(new GreenfootImage("1.png"), blockSize, 1), px, getHeight()/2 - blockSize*(selected[i]-j-1));
-                }
+                addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), px, getHeight()/2 - blockSize*(selected[i]-j));
+            }
+            if(i == selectedColumn){
+                addObject(new Button(new GreenfootImage("1.png"), blockSize, 1), px, getHeight()/2 - blockSize*(selected[i]+1));
             }
             for(int j = selected[i]+1; j < board.get(i).size(); j++){
                 String prefix = "U" + (board.get(i).get(j).solved ? "S" : "U");
-                addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2 + blockSize*(j-selected[i]));
-                if(j == board.get(i).size()-1 && i == selectedColumn){
-                    addObject(new Button(new GreenfootImage("2.png"), blockSize, 1), px, getHeight()/2 + blockSize*(j-selected[i]+1));
-                }
+                addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), px, getHeight()/2 + blockSize*(j-selected[i]));
+            }
+            if(i == selectedColumn){
+                addObject(new Button(new GreenfootImage("2.png"), blockSize, 1), px, Math.abs(getHeight()/2 + blockSize*(board.get(i).size() - selected[i])));
             }
         }
 
