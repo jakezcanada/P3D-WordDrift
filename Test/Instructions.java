@@ -18,5 +18,7 @@ public class Instructions extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1);
         addObject(new Button(new GreenfootImage("WordDrift Instructions.png"), 650, 1.77), 640, 360);
+        //Button exitInstructionsButton = new Button(new GreenfootImage("exitButton.png"), 650, 1.77);
+        //addObject(exitInstructionsButton, 100, 400);
     }
 }
