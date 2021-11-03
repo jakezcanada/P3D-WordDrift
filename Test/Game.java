@@ -13,13 +13,13 @@ import java.util.Scanner;
 
 //feature suggestions: timed score achievement and unorthodox solution achievement
 public class Game extends World{
-    
+
     // Inner class to store the properties of each tile/block
     class Block{
         String item;
         Boolean solved;
     }
-    
+
     // Word length size is max at 23
     private int wordLength;
     private int numOfWords;
@@ -41,40 +41,43 @@ public class Game extends World{
     public Game(){    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1);
-        
+
         // Ask user for word length
         while(true){
-            String input = Greenfoot.ask("How long would you like the words to be? (1 - 23 characters)");
+            String input = Greenfoot.ask("How long would you like the words to be? (1 - 20 characters)");
             if(isNumeric(input)){
                 int temp = (int) Double.parseDouble(input);
-                if(temp > 1 && temp < 24){
+                if(temp > 0 && temp < 21){
                     wordLength = temp;
                     break;
                 }
             }
         }
-        
+
         // Ask user for num of words
         while(true){
             //if there are not enough words, there will be as many as possible
             String input = Greenfoot.ask("How many words would you like? (under 8 is recommended)");
             if(isNumeric(input)){
                 int temp = (int) Double.parseDouble(input);
-                numOfWords = temp;
-                break;
+                if(temp > 1){
+                    numOfWords = temp;
+                    break;
+                }
+                
             }
         }
-        
+
         // Initialize variables
         words = Reader.read(wordLength);
         selected = new int[wordLength];
         board = createBoard();
-        
+
         // Fill selected with 0
         for(int i = 0; i < selected.length; i++){
             selected[i] = r.nextInt(board.get(i).size());
         }
-        
+
         // Draw board
         drawBoard();
         String selectedStr = selectedString(board, selected);
@@ -90,7 +93,7 @@ public class Game extends World{
             checkAchievements();
         }
     }
-    
+
     public void act(){
         // Add counter
         addObject(counter, 1080, 100);
@@ -100,10 +103,12 @@ public class Game extends World{
             if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
                 selectedColumn++;
                 //System.out.println(Arrays.toString(selected));
+                removeObjects(getObjects(null));
                 drawBoard();
             }else if(Greenfoot.isKeyDown("left") && selectedColumn > 0){
                 selectedColumn--;
                 //System.out.println(Arrays.toString(selected));
+                removeObjects(getObjects(null));
                 drawBoard();
             }else if(Greenfoot.isKeyDown("up") && selected[selectedColumn] < board.get(selectedColumn).size()-1){
                 selected[selectedColumn]++;
@@ -119,8 +124,7 @@ public class Game extends World{
                     }
                     checkAchievements();
                 }
-                List objects = getObjects(null);
-                removeObjects(objects);
+                removeObjects(getObjects(null));
                 drawBoard();
                 // Send back to home screen after game completion
                 if(checkBoard()){
@@ -141,8 +145,7 @@ public class Game extends World{
                     checkAchievements();
                 }
                 //temp way to remove objects, kill me
-                List objects = getObjects(null);
-                removeObjects(objects);
+                removeObjects(getObjects(null));
                 drawBoard();
                 // Send back to home screen after game completion
                 if(checkBoard()){
@@ -156,7 +159,7 @@ public class Game extends World{
         }
         //draw everything here eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     }
-    
+
     public ArrayList<ArrayList<Block>> createBoard(){
         // Create all new ArrayLists
         ArrayList<ArrayList<String>> boardTemp = new ArrayList<ArrayList<String>>();
@@ -177,7 +180,7 @@ public class Game extends World{
                 }
             }
         }
-        
+
         for(ArrayList<String> arr : boardTemp){
             for(String b : arr){
                 System.out.print(b);
@@ -198,14 +201,14 @@ public class Game extends World{
                 board2.get(i).add(temp);
             }
         }
-        
+
         for(ArrayList<Block> s : board2){
             Collections.shuffle(s);
         }
-        
+
         return board2;
     }
-    
+
     // Draw the board
     public void drawBoard(){
         int blockSize = (wordLength%2 == 0) ? getWidth()/14 : getWidth()/15;
@@ -219,19 +222,29 @@ public class Game extends World{
             int x = offSet+(blockSize*i);
             String prefix1 = "S" + (board.get(i).get(selected[i]).solved ? "S" : "U");
             //addObject(new Button(board.get(i).get(selected[i]).item, blockSize/2, board.get(i).get(selected[i]).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2);
+            
+            int px = offSet+blockSize*i;
+            int pty = 0;
+            int pby = 0;
             addObject(new Button(new GreenfootImage(prefix1 + "_" + (board.get(i).get(selected[i]).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2);
             for(int j = selected[i]-1; j > -1; j--){
                 String prefix = "U" + (board.get(i).get(j).solved ? "S" : "U");
                 addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2 - blockSize*(selected[i]-j));
+                if(j == 0 && i == selectedColumn){
+                    addObject(new Button(new GreenfootImage("1.png"), blockSize, 1), px, getHeight()/2 - blockSize*(selected[i]-j-1));
+                }
             }
             for(int j = selected[i]+1; j < board.get(i).size(); j++){
                 String prefix = "U" + (board.get(i).get(j).solved ? "S" : "U");
                 addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), offSet+blockSize*i, getHeight()/2 + blockSize*(j-selected[i]));
+                if(j == board.get(i).size()-1 && i == selectedColumn){
+                    addObject(new Button(new GreenfootImage("2.png"), blockSize, 1), px, getHeight()/2 + blockSize*(j-selected[i]+1));
+                }
             }
         }
 
     }
-    
+
     // Get the selected String
     public String selectedString(ArrayList<ArrayList<Block>> board, int[] selected){
         String selectedString = "";
@@ -240,7 +253,7 @@ public class Game extends World{
         }
         return selectedString;
     }
-    
+
     // Check if String is a number
     public static boolean isNumeric(String str) { 
         try {  
@@ -250,7 +263,7 @@ public class Game extends World{
             return false;
         }
     }
-    
+
     // Check if the current board is fully "solved"
     public boolean checkBoard(){
         for(ArrayList<Block> arr : board){
@@ -262,7 +275,7 @@ public class Game extends World{
         }
         return true;
     }
-    
+
     public void checkAchievements(){
         int w = counter.getScore();
         if(w == 5 || w == 10 || w == 20 || w == 30 || w == 50){
