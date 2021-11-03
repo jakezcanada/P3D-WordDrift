@@ -273,7 +273,7 @@ public class Game extends World{
         int w = counter.getScore();
         if(w == 5 || w == 10 || w == 20 || w == 30 || w == 50){
             GreenfootImage img = new GreenfootImage("You've solved " + w + " words and unlocked a new achievement!",40,Color.WHITE,Color.BLACK);
-            Picture p = new Picture(img);
+            Picture p = new Picture(img,true);
             addObject(p, 640, 320);
             
         }
