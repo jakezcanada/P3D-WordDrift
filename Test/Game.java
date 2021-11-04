@@ -26,9 +26,10 @@ public class Game extends World{
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> yeah = new ArrayList<Integer>();
-    Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
+    Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
+    private boolean hasWon = false;
     private int pauseOption = 1;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -100,7 +101,7 @@ public class Game extends World{
         showText("Press ENTER to pause", 200,670);
         // Add counter
         addObject(counter, 1080, 100);
-        if(Greenfoot.isKeyDown("enter") && !pause){
+        if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
             removeObjects(getObjects(null));
             pauseOption = 1;
             drawPauseMenu();
@@ -109,8 +110,10 @@ public class Game extends World{
         // Nav operations
         if(pause){
             checkPauseInput();
-        }else{            
+        }else if(!hasWon){            
             checkShiftInput();
+        }else if(hasWon && if(Greenfoot.isKeyDown("enter")){
+            Greenfoot.setWorld(new TitleScreen());
         }
     }
 
@@ -373,6 +376,7 @@ public class Game extends World{
     }
 
     public void transition(){
+        hasWon = true;
         GreenfootImage img = new GreenfootImage("transition.png");
         Picture p = new Picture(img);
         addObject(p,640,320);
