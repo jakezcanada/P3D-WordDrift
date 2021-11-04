@@ -9,7 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Slide extends Actor
 {
     SimpleTimer timer = new SimpleTimer();
-    public Slide(){
+    public Slide(GreenfootImage img){
+        setImage(img);
         timer.mark();
     }
 

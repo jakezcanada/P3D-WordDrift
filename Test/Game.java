@@ -26,6 +26,8 @@ public class Game extends World{
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> yeah = new ArrayList<Integer>();
+    private HashMap<Integer,GreenfootImage> woah = new HashMap<Integer,GreenfootImage>();
+    private HashMap<Integer,GreenfootImage> lol = new HashMap<Integer,GreenfootImage>();
     Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
@@ -39,7 +41,6 @@ public class Game extends World{
     // selectedColumn will keep track of, who could've guesses, the selected column...
     private int selectedColumn = 0;
     public Game(){    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1);
 
         // Ask user for word length
@@ -73,6 +74,7 @@ public class Game extends World{
         selected = new int[wordLength];
         board = createBoard();
 
+
         // Fill selected with 0
         for(int i = 0; i < selected.length; i++){
             selected[i] = r.nextInt(board.get(i).size());
@@ -101,6 +103,15 @@ public class Game extends World{
         showText("Press ENTER to pause", 200,670);
         // Add counter
         addObject(counter, 1080, 100);
+        // Add achievement pop-ups into hashmap
+        lol.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
+        lol.put(5,new GreenfootImage("WordNerd-PopUp.png"));
+        lol.put(8,new GreenfootImage("LetterWizard-PopUp.png"));
+        woah.put(1,new GreenfootImage("BigBrainUser-PopUp.png"));
+        woah.put(3,new GreenfootImage("SpellingBeeExpert-PopUp.png"));
+        woah.put(5,new GreenfootImage("BoardMaster-PopUp.png"));
+        woah.put(15,new GreenfootImage("Champion-Achieved.png"));
+        
         if(Greenfoot.isKeyDown("enter") && !pause){
             removeObjects(getObjects(null));
             pauseOption = 1;
@@ -316,9 +327,9 @@ public class Game extends World{
     public void drawPauseMenu(){
         removeObjects(getObjects(null));
         addObject(new Button(new GreenfootImage("Pause Menu Background.png"), getHeight(), 1), getWidth()/2, getHeight()/2);
-        addObject(new Button(new GreenfootImage("PMenuResume" + ((pauseOption == 1) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*2/5);
-        addObject(new Button(new GreenfootImage("PMenuSound" + ((pauseOption == 2) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*3/5);
-        addObject(new Button(new GreenfootImage("PMenuBackToMenu" + ((pauseOption == 3) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*4/5);
+        addObject(new Button(new GreenfootImage("PMenuResume" + ((pauseOption == 1) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*3/6);
+        addObject(new Button(new GreenfootImage("PMenuSound" + ((TitleScreen.bgm.isPlaying()) ? "On" : "Off") + ((pauseOption == 2) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*4/6);
+        addObject(new Button(new GreenfootImage("PMenuBackToMenu" + ((pauseOption == 3) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*5/6);
     }
 
     // Get the selected String
@@ -362,14 +373,33 @@ public class Game extends World{
     private void checkAchievements()
     {
         int w = counter.getScore();
+        int x = boardCounter.getScore();
         
-        if(w == 1 || w == 2 || w == 3 || w == 4 || w == 5){
-            if(!yeah.contains(w)){
-                Slide s = new Slide();
+        if(!yeah.contains(w) && lol.containsKey(w)){
+                Slide s = new Slide(lol.get(w));
                 addObject(s, 640, 320);
                 Greenfoot.delay(50);
-            }
-            yeah.add(w);
+        }
+        yeah.add(w);
+        if(woah.containsKey(x)){
+                Slide s = new Slide(woah.get(x));
+                addObject(s, 640, 320);
+                Greenfoot.delay(50);
+        }
+        if(wordLength==1){
+            Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
+            addObject(s, 640, 320);
+            Greenfoot.delay(50);
+        }
+        if(wordLength > 13){
+            Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
+            addObject(s, 640, 320);
+            Greenfoot.delay(50);
+        }
+        if(numOfWords > 26){
+            Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
+            addObject(s, 640, 320);
+            Greenfoot.delay(50);
         }
     }
 
