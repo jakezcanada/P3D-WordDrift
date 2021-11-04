@@ -26,6 +26,7 @@ public class Game extends World{
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> yeah = new ArrayList<Integer>();
+    private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
     private HashMap<Integer,GreenfootImage> woah = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> lol = new HashMap<Integer,GreenfootImage>();
     private Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
@@ -124,6 +125,8 @@ public class Game extends World{
         }else{            
             checkShiftInput();
         }
+        
+        if(Greenfoot.mouseClicked(backtomenu)) Greenfoot.setWorld(new TitleScreen());
     }
 
     public void checkShiftInput(){
@@ -161,6 +164,7 @@ public class Game extends World{
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
+                    checkAchievements();
                     transition();
                 }
             }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
@@ -186,6 +190,7 @@ public class Game extends World{
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
+                    checkAchievements();
                     transition();
                 }
             }
@@ -381,28 +386,29 @@ public class Game extends World{
         
         if(!yeah.contains(w) && lol.containsKey(w)){
                 Slide s = new Slide(lol.get(w));
-                addObject(s, 640, 320);
+                addObject(s, 640, 100);
                 Greenfoot.delay(50);
         }
         yeah.add(w);
-        if(woah.containsKey(x)){
+        if(!boardcheck.contains(x) && woah.containsKey(x)){
                 Slide s = new Slide(woah.get(x));
-                addObject(s, 640, 320);
+                addObject(s, 640, 100);
                 Greenfoot.delay(50);
         }
+        boardcheck.add(x);
         if(wordLength==1){
             Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
-            addObject(s, 640, 320);
+            addObject(s, 640, 100);
             Greenfoot.delay(50);
         }
         if(wordLength > 13){
             Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
-            addObject(s, 640, 320);
+            addObject(s, 640, 100);
             Greenfoot.delay(50);
         }
         if(numOfWords > 26){
             Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
-            addObject(s, 640, 320);
+            addObject(s, 640, 100);
             Greenfoot.delay(50);
         }
     }
