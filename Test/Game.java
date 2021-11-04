@@ -26,6 +26,8 @@ public class Game extends World{
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private boolean isDown = false;
+    private boolean pause = false;
+    private int pauseOption = 1;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
     private int[] selected;
@@ -93,7 +95,21 @@ public class Game extends World{
     public void act(){
         // Add counter
         addObject(counter, 1080, 100);
+        
+        if(Greenfoot.isKeyDown("escape") && !isDown){
+            removeObjects(getObjects(null));
+            pause = !pause;
+        }
         // Nav operations
+        if(pause){
+            checkPauseInput();
+        }else{
+            pauseOption = 1;
+            checkShiftInput();
+        }
+    }
+
+    public void checkShiftInput(){
         if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && !isDown){
             TitleScreen.cursor.play();
             if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
@@ -154,7 +170,69 @@ public class Game extends World{
             isDown = false;
         }
     }
-
+    
+    public void checkPauseInput(){
+        if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && !isDown){
+            TitleScreen.cursor.play();
+            if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
+                selectedColumn++;
+                //System.out.println(Arrays.toString(selected));
+                removeObjects(getObjects(null));
+                drawBoard();
+            }else if(Greenfoot.isKeyDown("left") && selectedColumn > 0){
+                selectedColumn--;
+                //System.out.println(Arrays.toString(selected));
+                removeObjects(getObjects(null));
+                drawBoard();
+            }else if(Greenfoot.isKeyDown("up") && selected[selectedColumn] < board.get(selectedColumn).size()-1){
+                selected[selectedColumn]++;
+                String selectedStr = selectedString(board, selected);
+                if(words.contains(selectedStr)){
+                    if(!solvedwords.contains(selectedStr)){
+                        TitleScreen.click.play();
+                        counter.add();
+                    }    
+                    solvedwords.add(selectedStr);
+                    for(int i = 0; i < selected.length; i++){
+                        board.get(i).get(selected[i]).solved = true;
+                    }
+                    checkAchievements();
+                }
+                removeObjects(getObjects(null));
+                drawBoard();
+                // Send back to home screen after game completion
+                if(checkBoard()){
+                    Greenfoot.setWorld(new TitleScreen());
+                }
+            }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
+                selected[selectedColumn]--;
+                String selectedStr = selectedString(board, selected);
+                if(words.contains(selectedStr)){
+                    if(!solvedwords.contains(selectedStr)){
+                        TitleScreen.click.play();
+                        counter.add();
+                    }    
+                    solvedwords.add(selectedStr);
+                    for(int i = 0; i < selected.length; i++){
+                        board.get(i).get(selected[i]).solved = true;
+                    }
+                    checkAchievements();
+                }
+                //temp way to remove objects, kill me
+                removeObjects(getObjects(null));
+                drawBoard();
+                // Send back to home screen after game completion
+                if(checkBoard()){
+                    boardCounter.add();
+                    Greenfoot.setWorld(new TitleScreen());
+                }
+            }
+            isDown = true;
+        }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
+            isDown = false;
+        }
+    }
+    
     public ArrayList<ArrayList<Block>> createBoard(){
         // Create all new ArrayLists
         ArrayList<ArrayList<String>> boardTemp = new ArrayList<ArrayList<String>>();
@@ -236,6 +314,13 @@ public class Game extends World{
             }
         }
 
+    }
+    
+    // Draw the paused menu
+    public void pauseMenu(){
+        if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && !isDown){
+            
+        }
     }
 
     // Get the selected String
