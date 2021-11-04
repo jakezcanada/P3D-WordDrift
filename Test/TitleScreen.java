@@ -19,7 +19,7 @@ public class TitleScreen extends World
     private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
     
     
-    private static GreenfootSound bgm = new GreenfootSound("cantfindgoodmusic.mp3");
+    private static GreenfootSound bgm = new GreenfootSound("Bluebell.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public static GreenfootSound click = new GreenfootSound("Click.mp3");
     private Button musicOn = new Button(new GreenfootImage("SoundOn.png"), getHeight()/10, 1);
@@ -39,7 +39,6 @@ public class TitleScreen extends World
         Button logo = new Button(new GreenfootImage("WordDrift Logo.png"), getHeight()/5, 3.272);
         addObject(logo, getWidth()/2 - 20, (int) (getHeight()/5));
         //bgm.playLoop();
-        bgm.pause();
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
         draw();
     }
@@ -59,7 +58,7 @@ public class TitleScreen extends World
         addObject(achievementsButton, getWidth()/5, getHeight()*4/5);
         addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
         addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
-        addObject(musicOff, 1150, 100);
+        addObject(musicOn, 1150, 100);
     }
     
     public void act(){
