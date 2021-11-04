@@ -59,6 +59,8 @@ public class TitleScreen extends World
         addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
         addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
         addObject(musicOn, 1150, 100);
+        bgm.playLoop();
+
     }
     
     public void act(){
