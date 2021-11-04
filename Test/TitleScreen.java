@@ -39,8 +39,8 @@ public class TitleScreen extends World
     private void prepare(){
         Button logo = new Button(new GreenfootImage("WordDrift Logo.png"), getHeight()/5, 3.272);
         addObject(logo, getWidth()/2 - 20, (int) (getHeight()/5));
-        bgm.playLoop();
-        addObject(musicOn, 1150, 100);
+        //bgm.playLoop();
+        addObject(musicOff, 1150, 100);
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
         draw();
     }
