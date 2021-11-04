@@ -19,7 +19,7 @@ public class TitleScreen extends World
     private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
     
     
-    private static GreenfootSound bgm = new GreenfootSound("WordDrift Music.mp3");
+    public static GreenfootSound bgm = new GreenfootSound("WordDrift Music.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public static GreenfootSound click = new GreenfootSound("Click.mp3");
     private Button musicOn = new Button(new GreenfootImage("SoundOn.png"), getHeight()/10, 1);
