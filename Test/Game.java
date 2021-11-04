@@ -64,7 +64,7 @@ public class Game extends World{
                     numOfWords = temp;
                     break;
                 }
-                
+
             }
         }
 
@@ -89,27 +89,28 @@ public class Game extends World{
             for(int i = 0; i < selected.length; i++){
                 board.get(i).get(selected[i]).solved = true;
             }
-            
+
         }
+        
         drawBoard();
         addObject(counter, 1080, 100);
         checkAchievements();
     }
 
     public void act(){
-        showText("Press ENTER to return back to menu", 200,670);
+        showText("Press ENTER to pause", 200,670);
         // Add counter
         addObject(counter, 1080, 100);
-        
-        if(Greenfoot.isKeyDown("escape") && !isDown){
+        if(Greenfoot.isKeyDown("enter") && !pause){
             removeObjects(getObjects(null));
-            pause = !pause;
+            pauseOption = 1;
+            drawPauseMenu();
+            pause = true;
         }
         // Nav operations
         if(pause){
             checkPauseInput();
-        }else{
-            pauseOption = 1;
+        }else{            
             checkShiftInput();
         }
     }
@@ -136,11 +137,11 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
-                    
+
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
-                    
+
                 }
                 removeObjects(getObjects(null));
                 drawBoard();
@@ -160,11 +161,11 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
-                    
+
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
-                    
+
                 }
                 //temp way to remove objects, kill me
                 removeObjects(getObjects(null));
@@ -181,78 +182,53 @@ public class Game extends World{
         }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
             isDown = false;
         }
-        if (Greenfoot.mouseClicked(backtomenu)){
-            TitleScreen.cursor.play();
-            Greenfoot.setWorld(new TitleScreen());
-        }
-        if(Greenfoot.isKeyDown("ENTER")){
-            TitleScreen.cursor.play();
-            Greenfoot.setWorld(new TitleScreen());
-        }
+        //if (Greenfoot.mouseClicked(backtomenu)){
+        //    TitleScreen.cursor.play();
+        //    Greenfoot.setWorld(new TitleScreen());
+        //}
+        //if(Greenfoot.isKeyDown("ENTER")){
+        //    TitleScreen.cursor.play();
+        //    Greenfoot.setWorld(new TitleScreen());
+        //}
     }
-    
+
     public void checkPauseInput(){
-        if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && !isDown){
+        if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && !isDown){
             TitleScreen.cursor.play();
-            if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
-                selectedColumn++;
-                //System.out.println(Arrays.toString(selected));
-                removeObjects(getObjects(null));
-                drawBoard();
-            }else if(Greenfoot.isKeyDown("left") && selectedColumn > 0){
-                selectedColumn--;
-                //System.out.println(Arrays.toString(selected));
-                removeObjects(getObjects(null));
-                drawBoard();
-            }else if(Greenfoot.isKeyDown("up") && selected[selectedColumn] < board.get(selectedColumn).size()-1){
-                selected[selectedColumn]++;
-                String selectedStr = selectedString(board, selected);
-                if(words.contains(selectedStr)){
-                    if(!solvedwords.contains(selectedStr)){
-                        TitleScreen.click.play();
-                        counter.add();
-                    }    
-                    solvedwords.add(selectedStr);
-                    for(int i = 0; i < selected.length; i++){
-                        board.get(i).get(selected[i]).solved = true;
-                    }
-                    checkAchievements();
-                }
-                removeObjects(getObjects(null));
-                drawBoard();
-                // Send back to home screen after game completion
-                if(checkBoard()){
-                    Greenfoot.setWorld(new TitleScreen());
-                }
-            }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
-                selected[selectedColumn]--;
-                String selectedStr = selectedString(board, selected);
-                if(words.contains(selectedStr)){
-                    if(!solvedwords.contains(selectedStr)){
-                        TitleScreen.click.play();
-                        counter.add();
-                    }    
-                    solvedwords.add(selectedStr);
-                    for(int i = 0; i < selected.length; i++){
-                        board.get(i).get(selected[i]).solved = true;
-                    }
-                    checkAchievements();
-                }
-                //temp way to remove objects, kill me
-                removeObjects(getObjects(null));
-                drawBoard();
-                // Send back to home screen after game completion
-                if(checkBoard()){
-                    boardCounter.add();
-                    Greenfoot.setWorld(new TitleScreen());
-                }
+            if(Greenfoot.isKeyDown("up") && pauseOption > 1){
+                pauseOption--;
+                drawPauseMenu();
+            }else if(Greenfoot.isKeyDown("down") && pauseOption < 3){
+                pauseOption++;
+                drawPauseMenu();
             }
             isDown = true;
         }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
             isDown = false;
         }
+        if(Greenfoot.isKeyDown("enter")){
+            TitleScreen.click.play();
+            switch(pauseOption){
+                case 1: // Play
+                    pause = false;
+                    removeObjects(getObjects(null));
+                    drawBoard();
+                    break;
+                case 2: // music option
+                    if(TitleScreen.bgm.isPlaying()){
+                        TitleScreen.bgm.pause();
+                    }else{
+                        TitleScreen.bgm.playLoop();
+                    }
+                    drawPauseMenu();
+                    break;
+                case 3: // back to menu
+                    Greenfoot.setWorld(new TitleScreen());
+                    break;
+            }
+        }
     }
-    
+
     public ArrayList<ArrayList<Block>> createBoard(){
         // Create all new ArrayLists
         ArrayList<ArrayList<String>> boardTemp = new ArrayList<ArrayList<String>>();
@@ -315,7 +291,7 @@ public class Game extends World{
             int x = offSet+(blockSize*i);
             String prefix1 = "S" + (board.get(i).get(selected[i]).solved ? "S" : "U");
             //addObject(new Button(board.get(i).get(selected[i]).item, blockSize/2, board.get(i).get(selected[i]).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2);
-            
+
             int px = offSet+blockSize*i;
             addObject(new Button(new GreenfootImage(prefix1 + "_" + (board.get(i).get(selected[i]).item.toUpperCase()) + ".png"), blockSize, 1), px, getHeight()/2);
             for(int j = selected[i]-1; j > -1; j--){
@@ -323,7 +299,7 @@ public class Game extends World{
                 addObject(new Button(new GreenfootImage(prefix + "_" + (board.get(i).get(j).item.toUpperCase()) + ".png"), blockSize, 1), px, getHeight()/2 - blockSize*(selected[i]-j));
             }
             if(i == selectedColumn){
-                addObject(new Button(new GreenfootImage("1.png"), blockSize, 1), px, getHeight()/2 - blockSize*(selected[i]+1));
+                addObject(new Button(new GreenfootImage("1.png"), blockSize, 1), px, getHeight()/2 - (blockSize*(selected[i]+1)));
             }
             for(int j = selected[i]+1; j < board.get(i).size(); j++){
                 String prefix = "U" + (board.get(i).get(j).solved ? "S" : "U");
@@ -335,12 +311,14 @@ public class Game extends World{
         }
 
     }
-    
+
     // Draw the paused menu
-    public void pauseMenu(){
-        if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && !isDown){
-            
-        }
+    public void drawPauseMenu(){
+        removeObjects(getObjects(null));
+        addObject(new Button(new GreenfootImage("Pause Menu Background.png"), getHeight(), 1), getWidth()/2, getHeight()/2);
+        addObject(new Button(new GreenfootImage("PMenuResume" + ((pauseOption == 1) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*2/5);
+        addObject(new Button(new GreenfootImage("PMenuSound" + ((pauseOption == 2) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*3/5);
+        addObject(new Button(new GreenfootImage("PMenuBackToMenu" + ((pauseOption == 3) ? "-2" : "-1") + ".png"), getHeight()/10, 3.8), getWidth()/2, getHeight()*4/5);
     }
 
     // Get the selected String
@@ -394,7 +372,7 @@ public class Game extends World{
             yeah.add(w);
         }
     }
-    
+
     public void transition(){
         GreenfootImage img = new GreenfootImage("transition.png");
         Picture p = new Picture(img);
