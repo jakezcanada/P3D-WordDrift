@@ -25,10 +25,10 @@ public class Game extends World{
     public static Counter boardCounter = new Counter();
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
-    private ArrayList<Integer> yeah = new ArrayList<Integer>();
+    private ArrayList<Integer> wordCheck = new ArrayList<Integer>();
     private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
-    private HashMap<Integer,GreenfootImage> woah = new HashMap<Integer,GreenfootImage>();
-    private HashMap<Integer,GreenfootImage> lol = new HashMap<Integer,GreenfootImage>();
+    private HashMap<Integer,GreenfootImage> boardAchievements = new HashMap<Integer,GreenfootImage>();
+    private HashMap<Integer,GreenfootImage> wordAchievements = new HashMap<Integer,GreenfootImage>();
     private Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
@@ -44,7 +44,7 @@ public class Game extends World{
     private int selectedColumn = 0;
     public Game(){    
         super(1280, 720, 1);
-
+        
         // Ask user for word length
         while(true){
             String input = Greenfoot.ask("How long would you like the words to be? (1 - 20 characters)");
@@ -75,6 +75,33 @@ public class Game extends World{
         words = Reader.read(wordLength);
         selected = new int[wordLength];
         board = createBoard();
+        // Add counter
+        addObject(counter, 1080, 100);
+        
+        // Add achievement pop-ups into hashmap
+        wordAchievements.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
+        wordAchievements.put(5,new GreenfootImage("WordNerd-PopUp.png"));
+        wordAchievements.put(8,new GreenfootImage("LetterWizard-PopUp.png"));
+        boardAchievements.put(1,new GreenfootImage("BigBrainUser-PopUp.png"));
+        boardAchievements.put(3,new GreenfootImage("SpellingBeeExpert-PopUp.png"));
+        boardAchievements.put(5,new GreenfootImage("BoardMaster-PopUp.png"));
+        boardAchievements.put(15,new GreenfootImage("Champion-Achieved.png"));
+        // Check Achievements
+        if(wordLength==1){
+            Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
+            addObject(s, 1050, 680);
+            Greenfoot.delay(50);
+        }
+        if(wordLength > 13){
+            Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
+            addObject(s, 1050, 680);
+            Greenfoot.delay(50);
+        }
+        if(numOfWords > 26){
+            Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
+            addObject(s, 1050, 680);
+            Greenfoot.delay(50);
+        }
 
 
         // Fill selected with 0
@@ -103,17 +130,7 @@ public class Game extends World{
 
     public void act(){
         showText("Press ENTER to pause", 200,670);
-        // Add counter
-        addObject(counter, 1080, 100);
         
-        // Add achievement pop-ups into hashmap
-        lol.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
-        lol.put(5,new GreenfootImage("WordNerd-PopUp.png"));
-        lol.put(8,new GreenfootImage("LetterWizard-PopUp.png"));
-        woah.put(1,new GreenfootImage("BigBrainUser-PopUp.png"));
-        woah.put(3,new GreenfootImage("SpellingBeeExpert-PopUp.png"));
-        woah.put(5,new GreenfootImage("BoardMaster-PopUp.png"));
-        woah.put(15,new GreenfootImage("Champion-Achieved.png"));
         
 
         if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
@@ -389,14 +406,14 @@ public class Game extends World{
         int w = counter.getScore();
         int x = boardCounter.getScore();
         
-        if(!yeah.contains(w) && lol.containsKey(w)){
-                Slide s = new Slide(lol.get(w));
+        if(!wordCheck.contains(w) && wordAchievements.containsKey(w)){
+                Slide s = new Slide(wordAchievements.get(w));
                 addObject(s, 640, 100);
                 Greenfoot.delay(50);
         }
-        yeah.add(w);
-        if(!boardcheck.contains(x) && woah.containsKey(x)){
-                Slide s = new Slide(woah.get(x));
+        wordCheck.add(w);
+        if(!boardcheck.contains(x) && boardAchievements.containsKey(x)){
+                Slide s = new Slide(boardAchievements.get(x));
                 addObject(s, 640, 100);
                 Greenfoot.delay(50);
         }
