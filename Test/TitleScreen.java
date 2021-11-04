@@ -17,7 +17,8 @@ public class TitleScreen extends World
     private Button achievementsButton = new Button(new GreenfootImage("AchievementsButton-1.png"), getHeight()/9, 3.8);
     private Button instructionsButton = new Button(new GreenfootImage("InstructionsButton-1.png"), getHeight()/9, 3.8);
     private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
-    
+    private Button exitScreen = new Button(new GreenfootImage("Exit Screen.png"), getHeight(), 1.77);
+
     
     private static GreenfootSound bgm = new GreenfootSound("WordDrift Music.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
@@ -90,7 +91,7 @@ public class TitleScreen extends World
                     option++;
                 }
             }
-             
+            draw();
             if(Greenfoot.isKeyDown("enter")){
                 click.play();
                 switch(option){
@@ -104,12 +105,13 @@ public class TitleScreen extends World
                         Greenfoot.setWorld(new Instructions());
                         break;
                     case 4: // Exit
+                        addObject(exitScreen, getWidth()/2, getHeight()/2);
+                        bgm.pause();
                         Greenfoot.stop();
                         break;
                 }
             }
             isDown = true;
-            draw();
         }else if(!(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && isDown){
             isDown = false;
         }
