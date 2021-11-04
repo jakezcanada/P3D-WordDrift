@@ -25,6 +25,7 @@ public class Game extends World{
     public static Counter boardCounter = new Counter();
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
+    private ArrayList<Integer> yeah = new ArrayList<Integer>();
     private boolean isDown = false;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -82,10 +83,11 @@ public class Game extends World{
                 counter.add();
             }    
             solvedwords.add(selectedStr);
+            checkAchievements();
             for(int i = 0; i < selected.length; i++){
                 board.get(i).get(selected[i]).solved = true;
             }
-            checkAchievements();
+            
         }
         drawBoard();
     }
@@ -115,10 +117,11 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
+                    checkAchievements();
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
-                    checkAchievements();
+                    
                 }
                 removeObjects(getObjects(null));
                 drawBoard();
@@ -135,10 +138,11 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
+                    checkAchievements();
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
-                    checkAchievements();
+                    
                 }
                 //temp way to remove objects, kill me
                 removeObjects(getObjects(null));
@@ -271,11 +275,13 @@ public class Game extends World{
 
     public void checkAchievements(){
         int w = counter.getScore();
-        if(w == 5 || w == 10 || w == 20 || w == 30 || w == 50){
-            GreenfootImage img = new GreenfootImage("You've solved " + w + " words and unlocked a new achievement!",40,Color.WHITE,Color.BLACK);
-            Picture p = new Picture(img,true);
-            addObject(p, 640, 320);
-            
+        if(w == 1 || w == 2 || w == 3 || w == 4 || w == 5){
+            if(!yeah.contains(w)){
+                Slide p = new Slide();
+                addObject(p, 640, 320);
+                Greenfoot.delay(100);
+            }
+            yeah.add(w);
         }
     }
 }
