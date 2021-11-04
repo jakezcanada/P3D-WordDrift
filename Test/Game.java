@@ -380,7 +380,7 @@ public class Game extends World{
             if(!yeah.contains(w)){
                 Slide p = new Slide();
                 addObject(p, 640, 320);
-                Greenfoot.delay(100);
+                Greenfoot.delay(50);
             }
             yeah.add(w);
         }
@@ -390,6 +390,6 @@ public class Game extends World{
         GreenfootImage img = new GreenfootImage("transition.png");
         Picture p = new Picture(img);
         addObject(p,640,320);
-        addObject(backtomenu,640,480);
+        addObject(backtomenu,640,420);
     }
 }
