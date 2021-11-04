@@ -62,6 +62,10 @@ public class TitleScreen extends World
     }
     
     public void act(){
+        if(Greenfoot.mouseClicked(playButton)) Greenfoot.setWorld(new Game());
+        if(Greenfoot.mouseClicked(achievementsButton)) Greenfoot.setWorld(new Achievements());
+        if(Greenfoot.mouseClicked(instructionsButton)) Greenfoot.setWorld(new Instructions());
+        if(Greenfoot.mouseClicked(exitButton)) Greenfoot.stop();
         if((Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && !isDown){
             if(option == 1){
                 if(Greenfoot.isKeyDown("down")){

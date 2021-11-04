@@ -83,13 +83,14 @@ public class Game extends World{
                 counter.add();
             }    
             solvedwords.add(selectedStr);
-            checkAchievements();
             for(int i = 0; i < selected.length; i++){
                 board.get(i).get(selected[i]).solved = true;
             }
             
         }
         drawBoard();
+        addObject(counter, 1080, 100);
+        checkAchievements();
     }
 
     public void act(){
@@ -117,7 +118,7 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
-                    checkAchievements();
+                    
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
@@ -125,6 +126,8 @@ public class Game extends World{
                 }
                 removeObjects(getObjects(null));
                 drawBoard();
+                addObject(counter, 1080, 100);
+                checkAchievements();
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     Greenfoot.setWorld(new TitleScreen());
@@ -138,7 +141,7 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
-                    checkAchievements();
+                    
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
@@ -147,6 +150,8 @@ public class Game extends World{
                 //temp way to remove objects, kill me
                 removeObjects(getObjects(null));
                 drawBoard();
+                addObject(counter, 1080, 100);
+                checkAchievements();
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
