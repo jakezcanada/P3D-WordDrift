@@ -8,12 +8,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Slide extends Actor
 {
-    /**
-     * Act - do whatever the Slide wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        // Add your action code here.
+    SimpleTimer timer = new SimpleTimer();
+    public Slide(){
+        timer.mark();
+    }
+
+    public void act(){
+        if (timer.millisElapsed() > 4000){
+            getWorld().removeObject(this);
+        }
     }    
 }

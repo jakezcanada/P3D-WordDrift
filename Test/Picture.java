@@ -8,18 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Picture extends Actor
 {
-    SimpleTimer timer = new SimpleTimer();
-    boolean heh;
-    public Picture(GreenfootImage myImage, boolean isAchievement){
+    public Picture(GreenfootImage myImage){
         setImage(myImage);
-        heh = isAchievement;
-        timer.mark();
     }
-
-    public void act(){
-        if (heh && timer.millisElapsed() > 3000){
-            getWorld().removeObject(this);
-        }
-    }    
-
 }

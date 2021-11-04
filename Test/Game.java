@@ -25,6 +25,8 @@ public class Game extends World{
     public static Counter boardCounter = new Counter();
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
+    private ArrayList<Integer> yeah = new ArrayList<Integer>();
+    Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
     private int pauseOption = 1;
@@ -87,12 +89,15 @@ public class Game extends World{
             for(int i = 0; i < selected.length; i++){
                 board.get(i).get(selected[i]).solved = true;
             }
-            checkAchievements();
+            
         }
         drawBoard();
+        addObject(counter, 1080, 100);
+        checkAchievements();
     }
 
     public void act(){
+        showText("Press ENTER to return back to menu", 200,670);
         // Add counter
         addObject(counter, 1080, 100);
         
@@ -131,16 +136,20 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
+                    
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
-                    checkAchievements();
+                    
                 }
                 removeObjects(getObjects(null));
                 drawBoard();
+                addObject(counter, 1080, 100);
+                checkAchievements();
                 // Send back to home screen after game completion
                 if(checkBoard()){
-                    Greenfoot.setWorld(new TitleScreen());
+                    boardCounter.add();
+                    transition();
                 }
             }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
                 selected[selectedColumn]--;
@@ -151,23 +160,34 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
+                    
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
                     }
-                    checkAchievements();
+                    
                 }
                 //temp way to remove objects, kill me
                 removeObjects(getObjects(null));
                 drawBoard();
+                addObject(counter, 1080, 100);
+                checkAchievements();
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
-                    Greenfoot.setWorld(new TitleScreen());
+                    transition();
                 }
             }
             isDown = true;
         }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
             isDown = false;
+        }
+        if (Greenfoot.mouseClicked(backtomenu)){
+            TitleScreen.cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
+        }
+        if(Greenfoot.isKeyDown("ENTER")){
+            TitleScreen.cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
         }
     }
     
@@ -356,11 +376,20 @@ public class Game extends World{
 
     public void checkAchievements(){
         int w = counter.getScore();
-        if(w == 5 || w == 10 || w == 20 || w == 30 || w == 50){
-            GreenfootImage img = new GreenfootImage("You've solved " + w + " words and unlocked a new achievement!",40,Color.WHITE,Color.BLACK);
-            Picture p = new Picture(img,true);
-            addObject(p, 640, 320);
-            
+        if(w == 1 || w == 2 || w == 3 || w == 4 || w == 5){
+            if(!yeah.contains(w)){
+                Slide p = new Slide();
+                addObject(p, 640, 320);
+                Greenfoot.delay(100);
+            }
+            yeah.add(w);
         }
+    }
+    
+    public void transition(){
+        GreenfootImage img = new GreenfootImage("transition.png");
+        Picture p = new Picture(img);
+        addObject(p,640,320);
+        addObject(backtomenu,640,480);
     }
 }
