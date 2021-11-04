@@ -21,8 +21,8 @@ public class Game extends World{
     }
     
     // Word length size is max at 23
-    private int wordLength;
-    private int numOfWords;
+    public static int wordLength;
+    public static int numOfWords;
     // Word Counter and Board Counter
     public static Counter counter = new Counter();
     public static Counter boardCounter = new Counter();
@@ -265,12 +265,16 @@ public class Game extends World{
     
     public void checkAchievements(){
         int w = counter.getScore();
-        if(w == 5 || w == 10 || w == 20 || w == 30 || w == 50){
-            GreenfootImage img = new GreenfootImage("You've solved " + w + " words and unlocked a new achievement!",40,Color.WHITE,Color.BLACK);
-            Picture p = new Picture(img);
-            addObject(p, 640, 320);
-            Greenfoot.delay(180);
-            removeObject(p);
+        if(w == 5){
+            popUp(new GreenfootImage("MyFirstWord-PopUp.png"));
         }
+    }
+    
+    private void popUp(GreenfootImage img)
+    {
+        Picture p = new Picture(img);
+        addObject(p, 0, 0);
+        Greenfoot.delay(100);
+        removeObject(p);
     }
 }
