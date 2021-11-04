@@ -10,6 +10,7 @@ import java.util.*;
 public class Achievements extends World
 {
     private HashMap<String, GreenfootImage> map = new HashMap<String, GreenfootImage>();
+    /*
     private Button mfw = new Button(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 84, 4.167);
     private Button wn = new Button(new GreenfootImage("WordNerd-GreyedAchievement.png"), 84, 4.167);
     private Button lw = new Button(new GreenfootImage("LetterWizard-GreyedAchievement.png"), 84, 4.167);
@@ -21,7 +22,8 @@ public class Achievements extends World
     private Button wd = new Button(new GreenfootImage("WristDamage-GreyedAchievement.png"), 84, 4.167);
     private Button ss = new Button(new GreenfootImage("StarStudent-GreyedAchievement.png"), 84, 4.167);
     private Button wdc = new Button(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 84, 4.167);
-    //public Achievement mfw = 
+    */
+    public Achievement mfw = new Achievement(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 3, 5);
     /**
      * Constructor for objects of class Achievements.
      * 
@@ -51,6 +53,7 @@ public class Achievements extends World
         }
         //Cover all of the achievements with the greyed out version
         addObject(mfw, 239, 188);
+        /*
         addObject(wn, 239, 301);
         addObject(lw, 239, 410);
         addObject(bbu, 239, 516);
@@ -61,7 +64,7 @@ public class Achievements extends World
         addObject(wd, 626, 519);
         addObject(ss, 626, 627);
         addObject(wdc,1080, 630);
-        /*
+        
         //Cover all progress bars
         GreenfootImage board = new GreenfootImage(1280, 720);
         board.setColor(Color.WHITE);
@@ -87,6 +90,7 @@ public class Achievements extends World
         if(i >= 1){
             removeObject(mfw);
         }
+        /*
         if(i >= 5){
             removeObject(wn);
         }
@@ -114,6 +118,7 @@ public class Achievements extends World
         {
             removeObject(wd);
         }
+        */
     }
     
 }
