@@ -16,7 +16,7 @@ public class Game extends World{
         String item;
         Boolean solved;
     }
-
+    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     // Word length size is max at 23
     public static int wordLength;
     public static int numOfWords;
@@ -26,7 +26,10 @@ public class Game extends World{
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> yeah = new ArrayList<Integer>();
-    Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
+    private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
+    private HashMap<Integer,GreenfootImage> woah = new HashMap<Integer,GreenfootImage>();
+    private HashMap<Integer,GreenfootImage> lol = new HashMap<Integer,GreenfootImage>();
+    private Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
     private boolean hasWon = false;
@@ -73,6 +76,7 @@ public class Game extends World{
         selected = new int[wordLength];
         board = createBoard();
 
+
         // Fill selected with 0
         for(int i = 0; i < selected.length; i++){
             selected[i] = r.nextInt(board.get(i).size());
@@ -101,6 +105,17 @@ public class Game extends World{
         showText("Press ENTER to pause", 200,670);
         // Add counter
         addObject(counter, 1080, 100);
+        
+        // Add achievement pop-ups into hashmap
+        lol.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
+        lol.put(5,new GreenfootImage("WordNerd-PopUp.png"));
+        lol.put(8,new GreenfootImage("LetterWizard-PopUp.png"));
+        woah.put(1,new GreenfootImage("BigBrainUser-PopUp.png"));
+        woah.put(3,new GreenfootImage("SpellingBeeExpert-PopUp.png"));
+        woah.put(5,new GreenfootImage("BoardMaster-PopUp.png"));
+        woah.put(15,new GreenfootImage("Champion-Achieved.png"));
+        
+
         if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
             removeObjects(getObjects(null));
             pauseOption = 1;
@@ -115,6 +130,8 @@ public class Game extends World{
         }else if(hasWon && if(Greenfoot.isKeyDown("enter")){
             Greenfoot.setWorld(new TitleScreen());
         }
+        
+        if(Greenfoot.mouseClicked(backtomenu)) Greenfoot.setWorld(new TitleScreen());
     }
 
     public void checkShiftInput(){
@@ -152,6 +169,7 @@ public class Game extends World{
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
+                    checkAchievements();
                     transition();
                 }
             }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
@@ -177,12 +195,17 @@ public class Game extends World{
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
+                    checkAchievements();
                     transition();
                 }
             }
             isDown = true;
         }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
             isDown = false;
+        }
+        if (Greenfoot.mouseClicked(backtomenu)){
+            cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
         }
         //if (Greenfoot.mouseClicked(backtomenu)){
         //    TitleScreen.cursor.play();
@@ -364,22 +387,43 @@ public class Game extends World{
     private void checkAchievements()
     {
         int w = counter.getScore();
+        int x = boardCounter.getScore();
         
-        if(w == 1 || w == 2 || w == 3 || w == 4 || w == 5){
-            if(!yeah.contains(w)){
-                Slide s = new Slide();
-                addObject(s, 640, 320);
+        if(!yeah.contains(w) && lol.containsKey(w)){
+                Slide s = new Slide(lol.get(w));
+                addObject(s, 640, 100);
                 Greenfoot.delay(50);
-            }
-            yeah.add(w);
+        }
+        yeah.add(w);
+        if(!boardcheck.contains(x) && woah.containsKey(x)){
+                Slide s = new Slide(woah.get(x));
+                addObject(s, 640, 100);
+                Greenfoot.delay(50);
+        }
+        boardcheck.add(x);
+        if(wordLength==1){
+            Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
+            addObject(s, 640, 100);
+            Greenfoot.delay(50);
+        }
+        if(wordLength > 13){
+            Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
+            addObject(s, 640, 100);
+            Greenfoot.delay(50);
+        }
+        if(numOfWords > 26){
+            Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
+            addObject(s, 640, 100);
+            Greenfoot.delay(50);
         }
     }
 
     public void transition(){
         hasWon = true;
-        GreenfootImage img = new GreenfootImage("transition.png");
+        GreenfootImage img = new GreenfootImage("Win Screen.png");
         Picture p = new Picture(img);
-        addObject(p,640,320);
-        addObject(backtomenu,640,420);
+        addObject(p,getWidth()/2, getHeight()/2);
+        addObject(backtomenu,900,510);
+        
     }
 }
