@@ -381,16 +381,14 @@ public class Game extends World{
     //     }
     // }
     
-    private void popUp(GreenfootImage img)
+    private void checkAchievements()
     {
-        Picture p = new Picture(img);
-        addObject(p, 0, 0);
-        Greenfoot.delay(100);
-        removeObject(p);
+        int w = counter.getScore();
+        
         if(w == 1 || w == 2 || w == 3 || w == 4 || w == 5){
             if(!yeah.contains(w)){
-                Slide p = new Slide();
-                addObject(p, 640, 320);
+                Slide s = new Slide();
+                addObject(s, 640, 320);
                 Greenfoot.delay(50);
             }
             yeah.add(w);
