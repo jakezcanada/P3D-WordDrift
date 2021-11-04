@@ -18,8 +18,8 @@ public class Game extends World{
     }
 
     // Word length size is max at 23
-    private int wordLength;
-    private int numOfWords;
+    public static int wordLength;
+    public static int numOfWords;
     // Word Counter and Board Counter
     public static Counter counter = new Counter();
     public static Counter boardCounter = new Counter();
@@ -352,13 +352,24 @@ public class Game extends World{
         return true;
     }
 
-    public void checkAchievements(){
-        int w = counter.getScore();
+    // public void checkAchievements(){
+    //     int w = counter.getScore();
+    //     if(w == 5){
+    //         popUp(new GreenfootImage("MyFirstWord-PopUp.png"));
+    //     }
+    // }
+    
+    private void popUp(GreenfootImage img)
+    {
+        Picture p = new Picture(img);
+        addObject(p, 0, 0);
+        Greenfoot.delay(100);
+        removeObject(p);
         if(w == 1 || w == 2 || w == 3 || w == 4 || w == 5){
             if(!yeah.contains(w)){
                 Slide p = new Slide();
                 addObject(p, 640, 320);
-                Greenfoot.delay(100);
+                Greenfoot.delay(50);
             }
             yeah.add(w);
         }
@@ -368,6 +379,6 @@ public class Game extends World{
         GreenfootImage img = new GreenfootImage("transition.png");
         Picture p = new Picture(img);
         addObject(p,640,320);
-        addObject(backtomenu,640,480);
+        addObject(backtomenu,640,420);
     }
 }

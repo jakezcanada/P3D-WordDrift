@@ -10,6 +10,18 @@ import java.util.*;
 public class Achievements extends World
 {
     private HashMap<String, GreenfootImage> map = new HashMap<String, GreenfootImage>();
+    private Button mfw = new Button(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 84, 4.167);
+    private Button wn = new Button(new GreenfootImage("WordNerd-GreyedAchievement.png"), 84, 4.167);
+    private Button lw = new Button(new GreenfootImage("LetterWizard-GreyedAchievement.png"), 84, 4.167);
+    private Button bbu = new Button(new GreenfootImage("BigBrainUser-GreyedAchievement.png"), 84, 4.167);
+    private Button sbe = new Button(new GreenfootImage("SpellingBeeExpert-GreyedAchievement.png"), 84, 4.167);
+    private Button bm = new Button(new GreenfootImage("BoardMaster-GreyedAchievement.png"), 84, 4.167);
+    private Button t = new Button(new GreenfootImage("Trivial-GreyedAchievement.png"), 84, 4.167);
+    private Button dw = new Button(new GreenfootImage("DeathWish-GreyedAchievement.png"), 84, 4.167);
+    private Button wd = new Button(new GreenfootImage("WristDamage-GreyedAchievement.png"), 84, 4.167);
+    private Button ss = new Button(new GreenfootImage("StarStudent-GreyedAchievement.png"), 84, 4.167);
+    private Button wdc = new Button(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 84, 4.167);
+    //public Achievement mfw = 
     /**
      * Constructor for objects of class Achievements.
      * 
@@ -28,12 +40,6 @@ public class Achievements extends World
         int width = 400;
         int height = 280;
         addAchievements();
-        if(map.isEmpty()){
-            String str = "You do not have any achievements yet :(";
-            GreenfootImage im = new GreenfootImage(str,60,Color.WHITE,Color.BLACK);
-            Picture im1 = new Picture(im);
-            addObject(im1, 640, 320);
-        }
         for(String key: map.keySet()){
             GreenfootImage im = new GreenfootImage(key,60,Color.WHITE,Color.BLACK);
             GreenfootImage img = map.get(key);
@@ -43,6 +49,25 @@ public class Achievements extends World
             addObject(img1,width+200,height);
             height += 120;
         }
+        //Cover all of the achievements with the greyed out version
+        addObject(mfw, 239, 188);
+        addObject(wn, 239, 301);
+        addObject(lw, 239, 410);
+        addObject(bbu, 239, 516);
+        addObject(sbe, 239, 622);
+        addObject(bm, 626, 188);
+        addObject(t, 626, 296);
+        addObject(dw, 626, 408);
+        addObject(wd, 626, 519);
+        addObject(ss, 626, 627);
+        addObject(wdc,1080, 630);
+        /*
+        //Cover all progress bars
+        GreenfootImage board = new GreenfootImage(1280, 720);
+        board.setColor(Color.WHITE);
+        board.fill();
+        */
+        
     }
     public void act(){
         if(Greenfoot.isKeyDown("enter")) {
@@ -56,20 +81,38 @@ public class Achievements extends World
     
     public void addAchievements(){
         int i = Game.counter.getScore();
+        int j = Game.boardCounter.getScore();
+        int m = Game.wordLength;
+        int n = Game.numOfWords;
+        if(i >= 1){
+            removeObject(mfw);
+        }
         if(i >= 5){
-            map.put("Word Beginner", new GreenfootImage("a1.png"));
+            removeObject(wn);
         }
-        if(i >= 10){
-            map.put("Word Nerd", new GreenfootImage("a2.png"));
+        if(i >= 8){
+            removeObject(lw);
         }
-        if(i >= 20){
-            map.put("Word Expert", new GreenfootImage("a3.png"));
+        if(j >= 1){
+            removeObject(bbu);
         }
-        if(i >= 30){
-            map.put("Word Master", new GreenfootImage("a4.png"));
+        if(j >= 3){
+            removeObject(sbe);
         }
-        if(i >= 50){
-            map.put("Word Lord", new GreenfootImage("a5.png"));
+        if(j >= 3){
+            removeObject(bm);
+        }
+        if(m == 1)
+        {
+            removeObject(t);
+        }
+        if(m > 13)
+        {
+            removeObject(dw);
+        }
+        if(n > 26)
+        {
+            removeObject(wd);
         }
     }
     
