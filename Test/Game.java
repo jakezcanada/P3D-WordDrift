@@ -26,6 +26,7 @@ public class Game extends World{
     // ArrayList of solved words
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> yeah = new ArrayList<Integer>();
+    Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -94,6 +95,7 @@ public class Game extends World{
     }
 
     public void act(){
+        showText("Press ENTER to return back to menu", 200,670);
         // Add counter
         addObject(counter, 1080, 100);
         // Nav operations
@@ -130,7 +132,8 @@ public class Game extends World{
                 checkAchievements();
                 // Send back to home screen after game completion
                 if(checkBoard()){
-                    Greenfoot.setWorld(new TitleScreen());
+                    boardCounter.add();
+                    transition();
                 }
             }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
                 selected[selectedColumn]--;
@@ -155,12 +158,20 @@ public class Game extends World{
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
-                    Greenfoot.setWorld(new TitleScreen());
+                    transition();
                 }
             }
             isDown = true;
         }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
             isDown = false;
+        }
+        if (Greenfoot.mouseClicked(backtomenu)){
+            TitleScreen.cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
+        }
+        if(Greenfoot.isKeyDown("ENTER")){
+            TitleScreen.cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
         }
     }
 
@@ -288,5 +299,12 @@ public class Game extends World{
             }
             yeah.add(w);
         }
+    }
+    
+    public void transition(){
+        GreenfootImage img = new GreenfootImage("transition.png");
+        Picture p = new Picture(img);
+        addObject(p,640,320);
+        addObject(backtomenu,640,480);
     }
 }
