@@ -161,6 +161,7 @@ public class Game extends World{
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
+                    checkAchievements();
                     transition();
                 }
             }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
@@ -186,6 +187,7 @@ public class Game extends World{
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
+                    checkAchievements();
                     transition();
                 }
             }
