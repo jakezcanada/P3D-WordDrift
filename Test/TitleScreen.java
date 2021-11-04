@@ -30,12 +30,19 @@ public class TitleScreen extends World
     }
     
     private void prepare(){
+<<<<<<< Updated upstream
         GreenfootImage logo = new GreenfootImage("Logo.png");
         logo.scale(getHeight()/3, getHeight()/5);
         Picture logoPic = new Picture(logo);
         addObject(logoPic, getWidth()/2, (int) (getHeight()/4.5));
         //bgm.playLoop();
         bgm.pause();
+=======
+        Button logo = new Button(new GreenfootImage("WordDrift Logo.png"), getHeight()/5, 3.272);
+        addObject(logo, getWidth()/2 - 20, (int) (getHeight()/5));
+        //bgm.playLoop();
+        addObject(musicOff, 1150, 100);
+>>>>>>> Stashed changes
         //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
         Button playButton = new Button(new GreenfootImage("play.png"), getHeight()/15, 2.5);
         Button achievementsButton = new Button(new GreenfootImage("achievements.png"), getHeight()/15, 6.5);
