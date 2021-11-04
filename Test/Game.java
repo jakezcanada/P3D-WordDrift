@@ -127,7 +127,7 @@ public class Game extends World{
             checkPauseInput();
         }else if(!hasWon){            
             checkShiftInput();
-        }else if(hasWon && if(Greenfoot.isKeyDown("enter")){
+        }else if(hasWon && Greenfoot.isKeyDown("enter")){
             Greenfoot.setWorld(new TitleScreen());
         }
         
