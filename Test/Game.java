@@ -16,7 +16,7 @@ public class Game extends World{
         String item;
         Boolean solved;
     }
-
+    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     // Word length size is max at 23
     public static int wordLength;
     public static int numOfWords;
@@ -28,7 +28,7 @@ public class Game extends World{
     private ArrayList<Integer> yeah = new ArrayList<Integer>();
     private HashMap<Integer,GreenfootImage> woah = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> lol = new HashMap<Integer,GreenfootImage>();
-    Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
+    private Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
     private int pauseOption = 1;
@@ -192,6 +192,10 @@ public class Game extends World{
             isDown = true;
         }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
             isDown = false;
+        }
+        if (Greenfoot.mouseClicked(backtomenu)){
+            cursor.play();
+            Greenfoot.setWorld(new TitleScreen());
         }
         //if (Greenfoot.mouseClicked(backtomenu)){
         //    TitleScreen.cursor.play();
@@ -408,5 +412,6 @@ public class Game extends World{
         Picture p = new Picture(img);
         addObject(p,getWidth()/2, getHeight()/2);
         addObject(backtomenu,900,510);
+        
     }
 }
