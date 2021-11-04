@@ -374,9 +374,9 @@ public class Game extends World{
     }
 
     public void transition(){
-        GreenfootImage img = new GreenfootImage("transition.png");
+        GreenfootImage img = new GreenfootImage("Win Screen.png");
         Picture p = new Picture(img);
-        addObject(p,640,320);
-        addObject(backtomenu,640,420);
+        addObject(p,getWidth()/2, getHeight()/2);
+        addObject(backtomenu,900,510);
     }
 }
