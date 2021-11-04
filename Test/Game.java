@@ -33,6 +33,7 @@ public class Game extends World{
     private boolean isDown = false;
     private boolean pause = false;
     private boolean hasWon = false;
+    private boolean hasPaused = false;
     private int pauseOption = 1;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -98,7 +99,6 @@ public class Game extends World{
         
         drawBoard();
         addObject(counter, 1080, 100);
-        checkAchievements();
     }
 
     public void act(){
@@ -107,14 +107,6 @@ public class Game extends World{
         addObject(counter, 1080, 100);
         
         // Add achievement pop-ups into hashmap
-        lol.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
-        lol.put(5,new GreenfootImage("WordNerd-PopUp.png"));
-        lol.put(8,new GreenfootImage("LetterWizard-PopUp.png"));
-        woah.put(1,new GreenfootImage("BigBrainUser-PopUp.png"));
-        woah.put(3,new GreenfootImage("SpellingBeeExpert-PopUp.png"));
-        woah.put(5,new GreenfootImage("BoardMaster-PopUp.png"));
-        woah.put(15,new GreenfootImage("Champion-Achieved.png"));
-        
 
         if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
             removeObjects(getObjects(null));
@@ -127,7 +119,7 @@ public class Game extends World{
             checkPauseInput();
         }else if(!hasWon){            
             checkShiftInput();
-        }else if(hasWon && if(Greenfoot.isKeyDown("enter")){
+        }else if(hasWon && Greenfoot.isKeyDown("enter")){
             Greenfoot.setWorld(new TitleScreen());
         }
         
@@ -165,11 +157,9 @@ public class Game extends World{
                 removeObjects(getObjects(null));
                 drawBoard();
                 addObject(counter, 1080, 100);
-                checkAchievements();
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
-                    checkAchievements();
                     transition();
                 }
             }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
@@ -191,11 +181,9 @@ public class Game extends World{
                 removeObjects(getObjects(null));
                 drawBoard();
                 addObject(counter, 1080, 100);
-                checkAchievements();
                 // Send back to home screen after game completion
                 if(checkBoard()){
                     boardCounter.add();
-                    checkAchievements();
                     transition();
                 }
             }
@@ -375,47 +363,6 @@ public class Game extends World{
             }
         }
         return true;
-    }
-
-    // public void checkAchievements(){
-    //     int w = counter.getScore();
-    //     if(w == 5){
-    //         popUp(new GreenfootImage("MyFirstWord-PopUp.png"));
-    //     }
-    // }
-    
-    private void checkAchievements()
-    {
-        int w = counter.getScore();
-        int x = boardCounter.getScore();
-        
-        if(!yeah.contains(w) && lol.containsKey(w)){
-                Slide s = new Slide(lol.get(w));
-                addObject(s, 640, 100);
-                Greenfoot.delay(50);
-        }
-        yeah.add(w);
-        if(!boardcheck.contains(x) && woah.containsKey(x)){
-                Slide s = new Slide(woah.get(x));
-                addObject(s, 640, 100);
-                Greenfoot.delay(50);
-        }
-        boardcheck.add(x);
-        if(wordLength==1){
-            Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
-        if(wordLength > 13){
-            Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
-        if(numOfWords > 26){
-            Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
     }
 
     public void transition(){

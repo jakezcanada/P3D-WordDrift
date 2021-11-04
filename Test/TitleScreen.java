@@ -99,7 +99,6 @@ public class TitleScreen extends World
                         Greenfoot.setWorld(new Game());
                         break;
                     case 2: // Achievements
-                        Greenfoot.setWorld(new Achievements());
                         break;
                     case 3: // Instructions
                         Greenfoot.setWorld(new Instructions());
