@@ -18,7 +18,6 @@ public class Button extends Actor
         playButton.drawString(text, 0, fontSize);
 
         setImage(playButton);
-        //setImage(new GreenfootImage(""+text, fontSize, Color.BLACK, new Color(0, 0, 0, 0)));
     }
     
     public Button(GreenfootImage img, int height, double widthMulti){

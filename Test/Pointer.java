@@ -25,7 +25,6 @@ public class Pointer extends Actor
     }
     public void act()
     {
-        // Add your action code here.  
         if(delay == 0)
             delay = 4;
         if(delay == 1)

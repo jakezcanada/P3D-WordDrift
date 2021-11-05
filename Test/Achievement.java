@@ -35,9 +35,5 @@ public class Achievement extends Actor
         bar.fill();
         return bar;
     }
-    
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+      
 }
