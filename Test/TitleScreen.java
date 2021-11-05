@@ -107,7 +107,7 @@ public class TitleScreen extends World
                         Greenfoot.setWorld(new Instructions());
                         break;
                     case 4: // Exit
-                        addObject(exitScreen, getWidth()/2, getHeight()/2);
+                        addObject(exitScreen, getWidth()/2+50, getHeight()/2+15);
                         bgm.pause();
                         Greenfoot.stop();
                         break;
