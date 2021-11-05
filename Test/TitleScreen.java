@@ -1,25 +1,28 @@
     import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class TitleScreen here.
+ * This is the titlescreen, the first world the player can interact with
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
 public class TitleScreen extends World
 {
+    //To keep track of button options
     private int option = 1;
     private int numOfOptions = 4;
     private boolean isDown = false;
     private int[] imgWidth = new int[numOfOptions];
     
+    //Buttons on the titlescreen
     private Button playButton = new Button(new GreenfootImage("PlayButton-1.png"), getHeight()/3, 4);
     private Button achievementsButton = new Button(new GreenfootImage("AchievementsButton-1.png"), getHeight()/9, 3.8);
     private Button instructionsButton = new Button(new GreenfootImage("InstructionsButton-1.png"), getHeight()/9, 3.8);
     private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
     private Button exitScreen = new Button(new GreenfootImage("Exit Screen.png"), getHeight(), 1.77);
+    private Button crown = new Button(new GreenfootImage("Crown.png"), getHeight()/10, 1);
 
-    
+    //Background music and sound effects
     public static GreenfootSound bgm = new GreenfootSound("WordDrift Music.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public static GreenfootSound click = new GreenfootSound("Click.mp3");
@@ -36,20 +39,21 @@ public class TitleScreen extends World
         prepare();
     }
     
+    //Adds logo and music button
     private void prepare(){
         Button logo = new Button(new GreenfootImage("WordDrift Logo.png"), getHeight()/5, 3.272);
         addObject(logo, getWidth()/2 - 20, (int) (getHeight()/5));
-        //bgm.playLoop();
         addObject(musicOff, 1150, 100);
-        //addObject(new Button("Play", getHeight()/15), getWidth()/2, getHeight()/25*12);
         draw();
     }
     
+    //Buttons would change when players hover over them
     public void draw(){
         removeObject(playButton);
         removeObject(achievementsButton);
         removeObject(instructionsButton);
         removeObject(exitButton);
+        removeObject(crown);
         
         playButton = new Button(new GreenfootImage("PlayButton" + ((option == 1 ) ? "-2" : "-1") + ".png"), getHeight()/3, 4);
         achievementsButton = new Button(new GreenfootImage("AchievementsButton" + ((option == 2 ) ? "-2" : "-1") + ".png"), getHeight()/9, 3.8);
@@ -58,6 +62,11 @@ public class TitleScreen extends World
         
         addObject(playButton, getWidth()/2, getHeight()/2);
         addObject(achievementsButton, getWidth()/5, getHeight()*4/5);
+        if (option == 2) {
+            addObject(crown, getWidth()/5-170, getHeight()*4/5-60);
+        } else {
+            addObject(crown, getWidth()/5-155, getHeight()*4/5-47);
+        }
         addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
         addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
 
@@ -105,7 +114,7 @@ public class TitleScreen extends World
                         Greenfoot.setWorld(new Instructions());
                         break;
                     case 4: // Exit
-                        addObject(exitScreen, getWidth()/2, getHeight()/2);
+                        addObject(exitScreen, getWidth()/2+50, getHeight()/2+15);
                         bgm.pause();
                         Greenfoot.stop();
                         break;
