@@ -31,7 +31,7 @@ public class Game extends World{
     //HashMaps  that map a key(the score of the counter) to a value(achievement)
     private HashMap<Integer,GreenfootImage> boardAchievements = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> wordAchievements = new HashMap<Integer,GreenfootImage>();
-    private Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
+    private Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
     private boolean hasWon = false;
@@ -398,13 +398,12 @@ public class Game extends World{
         
     }
 
-    //Takes the player back to the titlescreen
+    //displays win screen and gives option to go back to menu
     public void transition(){
         hasWon = true;
         GreenfootImage img = new GreenfootImage("Win Screen.png");
         Picture p = new Picture(img);
-        addObject(p,getWidth()/2, getHeight()/2);
-        addObject(backtomenu,900,510);
-        
+        addObject(p,getWidth()/2+50, getHeight()/2+15);
+        addObject(backtomenu,950,525);
     }
 }
