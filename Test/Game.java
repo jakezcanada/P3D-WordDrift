@@ -237,13 +237,8 @@ public class Game extends World{
                 pauseOption++;
                 drawPauseMenu();
             }
-            isDown = true;
-        }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && isDown){
-            isDown = false;
-        }
-        if(Greenfoot.isKeyDown("enter")){
-            TitleScreen.click.play();
-            switch(pauseOption){
+            if(Greenfoot.isKeyDown("enter")){
+                switch(pauseOption){
                 case 1: // Play
                     pause = false;
                     removeObjects(getObjects(null));
@@ -260,7 +255,11 @@ public class Game extends World{
                 case 3: // back to menu
                     Greenfoot.setWorld(new TitleScreen());
                     break;
+                }
             }
+            isDown = true;
+        }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("down")) && isDown){
+            isDown = false;
         }
     }
 

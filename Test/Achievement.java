@@ -12,18 +12,28 @@ public class Achievement extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
+    private final int BAR_LENGTH = 175;
+    
     public Achievement(GreenfootImage ach, int progress, int total)
     {
+        ach.drawImage(progressBar(progress, total), 97, 60);
         setImage(ach);
     }
     
-    private GreenfootImage progressBar()
+    private GreenfootImage progressBar(int progress, int total)
     {
-        int percentReached = progress/total;
-        GreenfootImage bar = new GreenfootImage(10, 200);
+        double percentReached = progress/(double)total;
+        GreenfootImage bar;
+        if(percentReached == 0.0){
+            bar = new GreenfootImage(1, 10);
+        }else{
+            bar = new GreenfootImage((int) (BAR_LENGTH * percentReached), 10);
+        }
+            
+        
         bar.setColor(Color.GRAY);
         bar.fill();
-        
+        return bar;
     }
     
     public void act() 
