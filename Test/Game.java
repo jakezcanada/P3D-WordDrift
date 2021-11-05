@@ -17,9 +17,14 @@ public class Game extends World{
         Boolean solved;
     }
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
-    // Word length size is max at 23
+    // Set particle count per letter
+    private int NUM_OF_PARTICLES = 20;
+    // Word length size is max at 17
     public static int wordLength;
     public static int numOfWords;
+
+    private int blockSize;
+    private int offSet;
     // Word Counter and Board Counter
     public static Counter counter = new Counter();
     public static Counter boardCounter = new Counter();
@@ -27,12 +32,15 @@ public class Game extends World{
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> wordCheck = new ArrayList<Integer>();
     private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
+    // Achievement managers
     private HashMap<Integer,GreenfootImage> boardAchievements = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> wordAchievements = new HashMap<Integer,GreenfootImage>();
     private Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
+    // Checker booleans
     private boolean isDown = false;
     private boolean pause = false;
     private boolean hasWon = false;
+    private boolean hasPaused = false;
     private int pauseOption = 1;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -44,7 +52,6 @@ public class Game extends World{
     private int selectedColumn = 0;
     public Game(){    
         super(1280, 720, 1);
-        
         // Ask user for word length
         while(true){
             String input = Greenfoot.ask("How long would you like the words to be? (1 - 20 characters)");
@@ -77,7 +84,15 @@ public class Game extends World{
         board = createBoard();
         // Add counter
         addObject(counter, 1080, 100);
-        
+
+        if(wordLength > 13){
+            offSet = getWidth()/(wordLength+2) + (getWidth()/(wordLength+2))/2;
+            blockSize = getWidth()/(wordLength+2);
+        }else {
+            blockSize = (wordLength%2 == 0) ? getWidth()/14 : getWidth()/15;
+            offSet = ((getWidth() - (blockSize*wordLength))/2) + (blockSize/2);
+        }
+
         // Add achievement pop-ups into hashmap
         wordAchievements.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
         wordAchievements.put(5,new GreenfootImage("WordNerd-PopUp.png"));
@@ -97,12 +112,11 @@ public class Game extends World{
             addObject(s, 1050, 680);
             Greenfoot.delay(50);
         }
-        if(numOfWords > 26){
+        if(numOfWords >= 17){
             Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
             addObject(s, 1050, 680);
             Greenfoot.delay(50);
         }
-
 
         // Fill selected with 0
         for(int i = 0; i < selected.length; i++){
@@ -119,20 +133,30 @@ public class Game extends World{
             solvedwords.add(selectedStr);
             for(int i = 0; i < selected.length; i++){
                 board.get(i).get(selected[i]).solved = true;
+                spawnParticles(offSet+blockSize*i, getHeight()/2);
             }
-
+            List<Actor> actors = getObjects(null);
+            actors.removeAll(getObjects(Particle.class));
+            removeObjects(actors);
+            drawBoard();
+            for(int i = 0; i < selected.length; i++){
+                spawnParticles(offSet+blockSize*i, getHeight()/2);
+            }
+        }else{
+            List<Actor> actors = getObjects(null);
+            actors.removeAll(getObjects(Particle.class));
+            removeObjects(actors);
+            drawBoard();
         }
-        
-        drawBoard();
         addObject(counter, 1080, 100);
         checkAchievements();
     }
 
     public void act(){
-        showText("Press ENTER to pause", 200,670);
-        
-        
-
+        setPaintOrder(Game.class, Particle.class);
+        if(!hasPaused && !hasWon){
+            showText("Press ENTER to pause", 200,670);
+        }
         if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
             removeObjects(getObjects(null));
             pauseOption = 1;
@@ -145,9 +169,10 @@ public class Game extends World{
         }else if(!hasWon){            
             checkShiftInput();
         }else if(hasWon && Greenfoot.isKeyDown("enter")){
+            removeObjects(getObjects(null));
             Greenfoot.setWorld(new TitleScreen());
         }
-        
+
         if(Greenfoot.mouseClicked(backtomenu)) Greenfoot.setWorld(new TitleScreen());
     }
 
@@ -157,12 +182,16 @@ public class Game extends World{
             if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
                 selectedColumn++;
                 //System.out.println(Arrays.toString(selected));
-                removeObjects(getObjects(null));
+                List<Actor> actors = getObjects(null);
+                actors.removeAll(getObjects(Particle.class));
+                removeObjects(actors);
                 drawBoard();
             }else if(Greenfoot.isKeyDown("left") && selectedColumn > 0){
                 selectedColumn--;
                 //System.out.println(Arrays.toString(selected));
-                removeObjects(getObjects(null));
+                List<Actor> actors = getObjects(null);
+                actors.removeAll(getObjects(Particle.class));
+                removeObjects(actors);
                 drawBoard();
             }else if(Greenfoot.isKeyDown("up") && selected[selectedColumn] < board.get(selectedColumn).size()-1){
                 selected[selectedColumn]++;
@@ -173,14 +202,23 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
-
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
+                        spawnParticles(offSet+blockSize*i, getHeight()/2);
                     }
-
+                    List<Actor> actors = getObjects(null);
+                    actors.removeAll(getObjects(Particle.class));
+                    removeObjects(actors);
+                    drawBoard();
+                    for(int i = 0; i < selected.length; i++){
+                        spawnParticles(offSet+blockSize*i, getHeight()/2);
+                    }
+                }else{
+                    List<Actor> actors = getObjects(null);
+                    actors.removeAll(getObjects(Particle.class));
+                    removeObjects(actors);
+                    drawBoard();
                 }
-                removeObjects(getObjects(null));
-                drawBoard();
                 addObject(counter, 1080, 100);
                 checkAchievements();
                 // Send back to home screen after game completion
@@ -198,15 +236,23 @@ public class Game extends World{
                         counter.add();
                     }    
                     solvedwords.add(selectedStr);
-
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
+                        spawnParticles(offSet+blockSize*i, getHeight()/2);
                     }
-
+                    List<Actor> actors = getObjects(null);
+                    actors.removeAll(getObjects(Particle.class));
+                    removeObjects(actors);
+                    drawBoard();
+                    for(int i = 0; i < selected.length; i++){
+                        spawnParticles(offSet+blockSize*i, getHeight()/2);
+                    }
+                }else{
+                    List<Actor> actors = getObjects(null);
+                    actors.removeAll(getObjects(Particle.class));
+                    removeObjects(actors);
+                    drawBoard();
                 }
-                //temp way to remove objects, kill me
-                removeObjects(getObjects(null));
-                drawBoard();
                 addObject(counter, 1080, 100);
                 checkAchievements();
                 // Send back to home screen after game completion
@@ -224,14 +270,6 @@ public class Game extends World{
             cursor.play();
             Greenfoot.setWorld(new TitleScreen());
         }
-        //if (Greenfoot.mouseClicked(backtomenu)){
-        //    TitleScreen.cursor.play();
-        //    Greenfoot.setWorld(new TitleScreen());
-        //}
-        //if(Greenfoot.isKeyDown("ENTER")){
-        //    TitleScreen.cursor.play();
-        //    Greenfoot.setWorld(new TitleScreen());
-        //}
     }
 
     public void checkPauseInput(){
@@ -246,22 +284,22 @@ public class Game extends World{
             }
             if(Greenfoot.isKeyDown("enter")){
                 switch(pauseOption){
-                case 1: // Play
-                    pause = false;
-                    removeObjects(getObjects(null));
-                    drawBoard();
-                    break;
-                case 2: // music option
-                    if(TitleScreen.bgm.isPlaying()){
-                        TitleScreen.bgm.pause();
-                    }else{
-                        TitleScreen.bgm.playLoop();
-                    }
-                    drawPauseMenu();
-                    break;
-                case 3: // back to menu
-                    Greenfoot.setWorld(new TitleScreen());
-                    break;
+                    case 1: // Play
+                        pause = false;
+                        removeObjects(getObjects(null));
+                        drawBoard();
+                        break;
+                    case 2: // music option
+                        if(TitleScreen.bgm.isPlaying()){
+                            TitleScreen.bgm.pause();
+                        }else{
+                            TitleScreen.bgm.playLoop();
+                        }
+                        drawPauseMenu();
+                        break;
+                    case 3: // back to menu
+                        Greenfoot.setWorld(new TitleScreen());
+                        break;
                 }
             }
             isDown = true;
@@ -290,14 +328,6 @@ public class Game extends World{
                 }
             }
         }
-        /*
-        for(ArrayList<String> arr : boardTemp){
-            for(String b : arr){
-                System.out.print(b);
-            }
-            System.out.println();
-        }
-        */
         // Copy over into a 2D Block Array for efficient completion check
         ArrayList<ArrayList<Block>> board2 = new ArrayList<ArrayList<Block>>();
         for(int i = 0; i < wordLength; i++){
@@ -322,12 +352,6 @@ public class Game extends World{
 
     // Draw the board
     public void drawBoard(){
-        int blockSize = (wordLength%2 == 0) ? getWidth()/14 : getWidth()/15;
-        int offSet = ((getWidth() - (blockSize*wordLength))/2) + (blockSize/2);
-        if(wordLength > 13){
-            offSet = getWidth()/(wordLength+2) + (getWidth()/(wordLength+2))/2;
-            blockSize = getWidth()/(wordLength+2);
-        }
         boolean toggle = false;
         for(int i = 0; i < selected.length; i++){
             int x = offSet+(blockSize*i);
@@ -352,7 +376,7 @@ public class Game extends World{
             }
         }
 
-    }
+    } 
 
     // Draw the paused menu
     public void drawPauseMenu(){
@@ -394,28 +418,21 @@ public class Game extends World{
         return true;
     }
 
-    // public void checkAchievements(){
-    //     int w = counter.getScore();
-    //     if(w == 5){
-    //         popUp(new GreenfootImage("MyFirstWord-PopUp.png"));
-    //     }
-    // }
-    
     private void checkAchievements()
     {
         int w = counter.getScore();
         int x = boardCounter.getScore();
-        
+
         if(!wordCheck.contains(w) && wordAchievements.containsKey(w)){
-                Slide s = new Slide(wordAchievements.get(w));
-                addObject(s, 640, 100);
-                Greenfoot.delay(50);
+            Slide s = new Slide(wordAchievements.get(w));
+            addObject(s, 640, 100);
+            Greenfoot.delay(50);
         }
         wordCheck.add(w);
         if(!boardcheck.contains(x) && boardAchievements.containsKey(x)){
-                Slide s = new Slide(boardAchievements.get(x));
-                addObject(s, 640, 100);
-                Greenfoot.delay(50);
+            Slide s = new Slide(boardAchievements.get(x));
+            addObject(s, 640, 100);
+            Greenfoot.delay(50);
         }
         boardcheck.add(x);
         if(wordLength==1){
@@ -435,12 +452,19 @@ public class Game extends World{
         }
     }
 
+    public void spawnParticles(int x, int y){
+        for(int j = 0; j <= NUM_OF_PARTICLES; j++){
+            addObject(new Particle(), x, y);
+        }
+        System.out.println("hit");
+    }
+
     public void transition(){
         hasWon = true;
         GreenfootImage img = new GreenfootImage("Win Screen.png");
         Picture p = new Picture(img);
         addObject(p,getWidth()/2, getHeight()/2);
         addObject(backtomenu,900,510);
-        
+
     }
 }
