@@ -27,7 +27,7 @@ public class Achievements extends World
     public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 0, 1);
     public Achievement dw = new Achievement(new GreenfootImage("DeathWish-GreyedAchievement.png"), 0, dw_FULL);
     public Achievement wd = new Achievement(new GreenfootImage("WristDamage-GreyedAchievement.png"), 0, wd_FULL);
-    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), TitleScreen.timer.millisElapsed(), 1200000);
+    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 0, 1200000);
     public Achievement wdc = new Achievement(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 0, wdc_FULL);
     
     /**
