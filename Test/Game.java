@@ -75,8 +75,7 @@ public class Game extends World{
         words = Reader.read(wordLength);
         selected = new int[wordLength];
         board = createBoard();
-        // Add counter
-        addObject(counter, 1080, 100);
+        
         
         // Add achievement pop-ups into hashmap
         wordAchievements.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
@@ -130,7 +129,8 @@ public class Game extends World{
 
     public void act(){
         showText("Press ENTER to pause", 200,670);
-        
+        // Add counter
+        addObject(counter, 1080, 100);
         
 
         if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
