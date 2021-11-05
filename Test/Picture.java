@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Picture here.
+ * The picture class sets the image of a GreenfootImage object
  * 
  * @author (your name) 
  * @version (a version number or a date)

@@ -20,7 +20,9 @@ public class TitleScreen extends World
     private Button instructionsButton = new Button(new GreenfootImage("InstructionsButton-1.png"), getHeight()/9, 3.8);
     private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
     private Button exitScreen = new Button(new GreenfootImage("Exit Screen.png"), getHeight(), 1.77);
-
+    
+    //Game timer(how much time the game is played)
+    public static SimpleTimer timer = new SimpleTimer();
     //Background music and sound effects
     public static GreenfootSound bgm = new GreenfootSound("WordDrift Music.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
@@ -35,6 +37,7 @@ public class TitleScreen extends World
     {
         // Create a new world with 1280x720 cells with a cell size of 1x1 pixels
         super(1280, 720, 1, false);
+        timer.mark();
         prepare();
     }
     
@@ -66,6 +69,7 @@ public class TitleScreen extends World
 
     }
     
+    //Allows player to interact with buttons
     public void act(){
         if(Greenfoot.mouseClicked(playButton)) Greenfoot.setWorld(new Game());
         if(Greenfoot.mouseClicked(achievementsButton)) Greenfoot.setWorld(new Achievements());
