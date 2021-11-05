@@ -156,12 +156,10 @@ public class Game extends World{
             TitleScreen.cursor.play();
             if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
                 selectedColumn++;
-                //System.out.println(Arrays.toString(selected));
                 removeObjects(getObjects(null));
                 drawBoard();
             }else if(Greenfoot.isKeyDown("left") && selectedColumn > 0){
                 selectedColumn--;
-                //System.out.println(Arrays.toString(selected));
                 removeObjects(getObjects(null));
                 drawBoard();
             }else if(Greenfoot.isKeyDown("up") && selected[selectedColumn] < board.get(selectedColumn).size()-1){
