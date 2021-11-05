@@ -12,11 +12,11 @@ public class Achievement extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    private final int BAR_LENGTH = 150;
+    private final int BAR_LENGTH = 175;
     
     public Achievement(GreenfootImage ach, int progress, int total)
     {
-        ach.drawImage(progressBar(progress, total), 100, 200);
+        ach.drawImage(progressBar(progress, total), 97, 60);
         setImage(ach);
     }
     
@@ -31,7 +31,7 @@ public class Achievement extends Actor
         }
             
         
-        bar.setColor(Color.WHITE);
+        bar.setColor(Color.GRAY);
         bar.fill();
         return bar;
     }

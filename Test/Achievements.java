@@ -10,31 +10,30 @@ import java.util.*;
 public class Achievements extends World
 {
     private HashMap<String, GreenfootImage> map = new HashMap<String, GreenfootImage>();
-    /*
-    private Button mfw = new Button(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 84, 4.167);
-    private Button wn = new Button(new GreenfootImage("WordNerd-GreyedAchievement.png"), 84, 4.167);
-    private Button lw = new Button(new GreenfootImage("LetterWizard-GreyedAchievement.png"), 84, 4.167);
-    private Button bbu = new Button(new GreenfootImage("BigBrainUser-GreyedAchievement.png"), 84, 4.167);
-    private Button sbe = new Button(new GreenfootImage("SpellingBeeExpert-GreyedAchievement.png"), 84, 4.167);
-    private Button bm = new Button(new GreenfootImage("BoardMaster-GreyedAchievement.png"), 84, 4.167);
-    private Button t = new Button(new GreenfootImage("Trivial-GreyedAchievement.png"), 84, 4.167);
-    private Button dw = new Button(new GreenfootImage("DeathWish-GreyedAchievement.png"), 84, 4.167);
-    private Button wd = new Button(new GreenfootImage("WristDamage-GreyedAchievement.png"), 84, 4.167);
-    private Button ss = new Button(new GreenfootImage("StarStudent-GreyedAchievement.png"), 84, 4.167);
-    private Button wdc = new Button(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 84, 4.167);
-    */
-    public Achievement mfw = new Achievement(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 3, 5);
+    
+    public Achievement mfw = new Achievement(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 5, 5);
+    public Achievement wn = new Achievement(new GreenfootImage("WordNerd-GreyedAchievement.png"), 5, 5);
+    public Achievement lw = new Achievement(new GreenfootImage("LetterWizard-GreyedAchievement.png"), 5, 5);
+    public Achievement bbu = new Achievement(new GreenfootImage("BigBrainUser-GreyedAchievement.png"), 5, 5);
+    public Achievement sbe = new Achievement(new GreenfootImage("SpellingBeeExpert-GreyedAchievement.png"), 5, 5);
+    public Achievement bm = new Achievement(new GreenfootImage("BoardMaster-GreyedAchievement.png"), 5, 5);
+    public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 5, 5);
+    public Achievement dw = new Achievement(new GreenfootImage("DeathWish-GreyedAchievement.png"), 5, 5);
+    public Achievement wd = new Achievement(new GreenfootImage("WristDamage-GreyedAchievement.png"), 5, 5);
+    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 5, 5);
+    public Achievement wdc = new Achievement(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 5, 5);
+    
     /**
      * Constructor for objects of class Achievements.
      * 
      */
     private Button exitAchievementsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15   , 3.8);
 
-   public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
+    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public Achievements()
     {    
         super(1280, 720, 1, false);
-        addObject(exitAchievementsButton, getWidth()/2, getHeight()*9/10);
+        addObject(exitAchievementsButton, 150, 70);
         prepare();
     }
     
@@ -53,7 +52,7 @@ public class Achievements extends World
         }
         //Cover all of the achievements with the greyed out version
         addObject(mfw, 239, 188);
-        /*
+        
         addObject(wn, 239, 301);
         addObject(lw, 239, 410);
         addObject(bbu, 239, 516);
@@ -65,11 +64,6 @@ public class Achievements extends World
         addObject(ss, 626, 627);
         addObject(wdc,1080, 630);
         
-        //Cover all progress bars
-        GreenfootImage board = new GreenfootImage(1280, 720);
-        board.setColor(Color.WHITE);
-        board.fill();
-        */
         
     }
     public void act(){
@@ -90,7 +84,6 @@ public class Achievements extends World
         if(i >= 1){
             removeObject(mfw);
         }
-        /*
         if(i >= 5){
             removeObject(wn);
         }
@@ -118,7 +111,6 @@ public class Achievements extends World
         {
             removeObject(wd);
         }
-        */
     }
     
 }
