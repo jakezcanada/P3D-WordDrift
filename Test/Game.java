@@ -442,7 +442,6 @@ public class Game extends World{
         for(int j = 0; j <= NUM_OF_PARTICLES; j++){
             addObject(new Particle(), x, y);
         }
-        System.out.println("hit");
     }
 
     public void transition(){
