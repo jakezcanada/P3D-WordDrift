@@ -224,14 +224,7 @@ public class Game extends World{
             cursor.play();
             Greenfoot.setWorld(new TitleScreen());
         }
-        //if (Greenfoot.mouseClicked(backtomenu)){
-        //    TitleScreen.cursor.play();
-        //    Greenfoot.setWorld(new TitleScreen());
-        //}
-        //if(Greenfoot.isKeyDown("ENTER")){
-        //    TitleScreen.cursor.play();
-        //    Greenfoot.setWorld(new TitleScreen());
-        //}
+
     }
 
     public void checkPauseInput(){
@@ -282,7 +275,6 @@ public class Game extends World{
         for(int i = 0; i < numOfWords; i++){
             // Get a word and split
             String strT = words.get(r.nextInt(words.size()));
-            //System.out.println(strT);
             String[] strArr = strT.split("");
             // If the section doesn't already have said letter, add it
             for(int j = 0; j < wordLength; j++){
@@ -291,14 +283,7 @@ public class Game extends World{
                 }
             }
         }
-        /*
-        for(ArrayList<String> arr : boardTemp){
-            for(String b : arr){
-                System.out.print(b);
-            }
-            System.out.println();
-        }
-        */
+
         // Copy over into a 2D Block Array for efficient completion check
         ArrayList<ArrayList<Block>> board2 = new ArrayList<ArrayList<Block>>();
         for(int i = 0; i < wordLength; i++){
@@ -333,7 +318,6 @@ public class Game extends World{
         for(int i = 0; i < selected.length; i++){
             int x = offSet+(blockSize*i);
             String prefix1 = "S" + (board.get(i).get(selected[i]).solved ? "S" : "U");
-            //addObject(new Button(board.get(i).get(selected[i]).item, blockSize/2, board.get(i).get(selected[i]).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2);
 
             int px = offSet+blockSize*i;
             addObject(new Button(new GreenfootImage(prefix1 + "_" + (board.get(i).get(selected[i]).item.toUpperCase()) + ".png"), blockSize, 1), px, getHeight()/2);
@@ -395,13 +379,6 @@ public class Game extends World{
         return true;
     }
 
-    // public void checkAchievements(){
-    //     int w = counter.getScore();
-    //     if(w == 5){
-    //         popUp(new GreenfootImage("MyFirstWord-PopUp.png"));
-    //     }
-    // }
-    
     private void checkAchievements()
     {
         int w = counter.getScore();
