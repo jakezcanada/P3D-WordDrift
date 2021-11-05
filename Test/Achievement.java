@@ -1,6 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
- * Write a description of class Achievement here.
+ * This is the class that keeps track of the progress of achievements
  * 
  * @author (your name) 
  * @version (a version number or a date)

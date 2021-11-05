@@ -2,7 +2,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 import java.lang.Math.*;
 /**
- * Write a description of class Game here.
+ * This is the main class where the game is coded.
+ * The data structures (Arrays,ArrayLists,HashMaps)are contained here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -23,10 +24,11 @@ public class Game extends World{
     // Word Counter and Board Counter
     public static Counter counter = new Counter();
     public static Counter boardCounter = new Counter();
-    // ArrayList of solved words
+    // ArrayList of solved words,scores of words/boards
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> wordCheck = new ArrayList<Integer>();
     private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
+    //HashMaps  that map a key(the score of the counter) to a value(achievement)
     private HashMap<Integer,GreenfootImage> boardAchievements = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> wordAchievements = new HashMap<Integer,GreenfootImage>();
     private Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
@@ -75,8 +77,7 @@ public class Game extends World{
         words = Reader.read(wordLength);
         selected = new int[wordLength];
         board = createBoard();
-        // Add counter
-        addObject(counter, 1080, 100);
+        
         
         // Add achievement pop-ups into hashmap
         wordAchievements.put(1,new GreenfootImage("MyFirstWord-PopUp.png"));
@@ -130,7 +131,8 @@ public class Game extends World{
 
     public void act(){
         showText("Press ENTER to pause", 200,670);
-        
+        // Add counter
+        addObject(counter, 1080, 100);
         
 
         if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
@@ -156,12 +158,10 @@ public class Game extends World{
             TitleScreen.cursor.play();
             if(Greenfoot.isKeyDown("right") && selectedColumn < wordLength-1){
                 selectedColumn++;
-                //System.out.println(Arrays.toString(selected));
                 removeObjects(getObjects(null));
                 drawBoard();
             }else if(Greenfoot.isKeyDown("left") && selectedColumn > 0){
                 selectedColumn--;
-                //System.out.println(Arrays.toString(selected));
                 removeObjects(getObjects(null));
                 drawBoard();
             }else if(Greenfoot.isKeyDown("up") && selected[selectedColumn] < board.get(selectedColumn).size()-1){
@@ -224,14 +224,7 @@ public class Game extends World{
             cursor.play();
             Greenfoot.setWorld(new TitleScreen());
         }
-        //if (Greenfoot.mouseClicked(backtomenu)){
-        //    TitleScreen.cursor.play();
-        //    Greenfoot.setWorld(new TitleScreen());
-        //}
-        //if(Greenfoot.isKeyDown("ENTER")){
-        //    TitleScreen.cursor.play();
-        //    Greenfoot.setWorld(new TitleScreen());
-        //}
+
     }
 
     public void checkPauseInput(){
@@ -281,7 +274,6 @@ public class Game extends World{
         for(int i = 0; i < numOfWords; i++){
             // Get a word and split
             String strT = words.get(r.nextInt(words.size()));
-            //System.out.println(strT);
             String[] strArr = strT.split("");
             // If the section doesn't already have said letter, add it
             for(int j = 0; j < wordLength; j++){
@@ -290,14 +282,7 @@ public class Game extends World{
                 }
             }
         }
-        /*
-        for(ArrayList<String> arr : boardTemp){
-            for(String b : arr){
-                System.out.print(b);
-            }
-            System.out.println();
-        }
-        */
+
         // Copy over into a 2D Block Array for efficient completion check
         ArrayList<ArrayList<Block>> board2 = new ArrayList<ArrayList<Block>>();
         for(int i = 0; i < wordLength; i++){
@@ -332,7 +317,6 @@ public class Game extends World{
         for(int i = 0; i < selected.length; i++){
             int x = offSet+(blockSize*i);
             String prefix1 = "S" + (board.get(i).get(selected[i]).solved ? "S" : "U");
-            //addObject(new Button(board.get(i).get(selected[i]).item, blockSize/2, board.get(i).get(selected[i]).solved ? solved : unsolved), offSet+blockSize*i, getHeight()/2);
 
             int px = offSet+blockSize*i;
             addObject(new Button(new GreenfootImage(prefix1 + "_" + (board.get(i).get(selected[i]).item.toUpperCase()) + ".png"), blockSize, 1), px, getHeight()/2);
@@ -394,13 +378,6 @@ public class Game extends World{
         return true;
     }
 
-    // public void checkAchievements(){
-    //     int w = counter.getScore();
-    //     if(w == 5){
-    //         popUp(new GreenfootImage("MyFirstWord-PopUp.png"));
-    //     }
-    // }
-    
     private void checkAchievements()
     {
         int w = counter.getScore();
@@ -408,33 +385,20 @@ public class Game extends World{
         
         if(!wordCheck.contains(w) && wordAchievements.containsKey(w)){
                 Slide s = new Slide(wordAchievements.get(w));
-                addObject(s, 640, 100);
+                addObject(s, 640, 60);
                 Greenfoot.delay(50);
         }
         wordCheck.add(w);
         if(!boardcheck.contains(x) && boardAchievements.containsKey(x)){
                 Slide s = new Slide(boardAchievements.get(x));
-                addObject(s, 640, 100);
+                addObject(s, 640, 60);
                 Greenfoot.delay(50);
         }
         boardcheck.add(x);
-        if(wordLength==1){
-            Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
-        if(wordLength > 13){
-            Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
-        if(numOfWords > 26){
-            Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
+        
     }
 
+    //Takes the player back to the titlescreen
     public void transition(){
         hasWon = true;
         GreenfootImage img = new GreenfootImage("Win Screen.png");
