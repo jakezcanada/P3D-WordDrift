@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Slide here.
+ * This actor makes the GreenfootImage appear for 4 seconds then disappear from the world
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -13,7 +13,8 @@ public class Slide extends Actor
         setImage(img);
         timer.mark();
     }
-
+    
+    //When the number of milliseconds exceed 4000, the object will be removed
     public void act(){
         if (timer.millisElapsed() > 4000){
             getWorld().removeObject(this);

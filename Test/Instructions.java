@@ -1,7 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Instructions here.
+ * This is the class that displays the instructions when the player presses
+ * on the instructions button on the titlescreen
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -9,13 +10,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Instructions extends World
 {
 
+    
+    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
+    private Button exitInstructionsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
     /**
      * Constructor for objects of class Instructions.
      * 
      */
-    public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
-    private Button exitInstructionsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
-
     public Instructions()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.

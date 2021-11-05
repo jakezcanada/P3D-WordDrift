@@ -2,7 +2,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 import java.lang.Math.*;
 /**
- * Write a description of class Game here.
+ * This is the main class where the game is coded, and the data structures
+ * (Arrays, ArrayLists,HashMaps) are contained here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -23,12 +24,13 @@ public class Game extends World{
     // Word Counter and Board Counter
     public static Counter counter = new Counter();
     public static Counter boardCounter = new Counter();
-    // ArrayList of solved words
+    // ArrayList of solved words,solved scores for words/boards
     private ArrayList<String> solvedwords = new ArrayList<String>();
-    private ArrayList<Integer> yeah = new ArrayList<Integer>();
+    private ArrayList<Integer> wordCheck = new ArrayList<Integer>();
     private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
-    private HashMap<Integer,GreenfootImage> woah = new HashMap<Integer,GreenfootImage>();
-    private HashMap<Integer,GreenfootImage> lol = new HashMap<Integer,GreenfootImage>();
+    // HashMaps that map a key(int score of counter) to a value(achievement)
+    private HashMap<Integer,GreenfootImage> boardsAward = new HashMap<Integer,GreenfootImage>();
+    private HashMap<Integer,GreenfootImage> wordsAward = new HashMap<Integer,GreenfootImage>();
     private Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
@@ -364,7 +366,8 @@ public class Game extends World{
         }
         return true;
     }
-
+    
+    //Takes the player back to the titlescreen
     public void transition(){
         hasWon = true;
         GreenfootImage img = new GreenfootImage("Win Screen.png");

@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Buttons here.
+ * This class creates buttons so that players can interact with the game
  * 
  * @author (your name) 
  * @version (a version number or a date)
