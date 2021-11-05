@@ -2,26 +2,33 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 /**
- * Write a description of class Achievements here.
+ * Shows the achievements the user has made and their progress for unachieved ones
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
 public class Achievements extends World
 {
-    private HashMap<String, GreenfootImage> map = new HashMap<String, GreenfootImage>();
+    private final int wn_FULL = 5;
+    private final int lw_FULL = 8;
+    private final int sbe_FULL = 3;
+    private final int bm_FULL = 5;
+    private final int dw_FULL = 13;
+    private final int wd_FULL = 26;
+    private final int wdc_FULL = 15;
     
-    public Achievement mfw = new Achievement(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 5, 5);
-    public Achievement wn = new Achievement(new GreenfootImage("WordNerd-GreyedAchievement.png"), 5, 5);
-    public Achievement lw = new Achievement(new GreenfootImage("LetterWizard-GreyedAchievement.png"), 5, 5);
-    public Achievement bbu = new Achievement(new GreenfootImage("BigBrainUser-GreyedAchievement.png"), 5, 5);
-    public Achievement sbe = new Achievement(new GreenfootImage("SpellingBeeExpert-GreyedAchievement.png"), 5, 5);
-    public Achievement bm = new Achievement(new GreenfootImage("BoardMaster-GreyedAchievement.png"), 5, 5);
-    public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 5, 5);
-    public Achievement dw = new Achievement(new GreenfootImage("DeathWish-GreyedAchievement.png"), 5, 5);
-    public Achievement wd = new Achievement(new GreenfootImage("WristDamage-GreyedAchievement.png"), 5, 5);
-    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 5, 5);
-    public Achievement wdc = new Achievement(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 5, 5);
+    //Greyed Out Achievements
+    public Achievement mfw = new Achievement(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 0, 1);
+    public Achievement wn = new Achievement(new GreenfootImage("WordNerd-GreyedAchievement.png"), 0, wn_FULL);
+    public Achievement lw = new Achievement(new GreenfootImage("LetterWizard-GreyedAchievement.png"), 0, lw_FULL);
+    public Achievement bbu = new Achievement(new GreenfootImage("BigBrainUser-GreyedAchievement.png"), 0, 1);
+    public Achievement sbe = new Achievement(new GreenfootImage("SpellingBeeExpert-GreyedAchievement.png"), 0, sbe_FULL);
+    public Achievement bm = new Achievement(new GreenfootImage("BoardMaster-GreyedAchievement.png"), 0, bm_FULL);
+    public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 0, 1);
+    public Achievement dw = new Achievement(new GreenfootImage("DeathWish-GreyedAchievement.png"), 0, dw_FULL);
+    public Achievement wd = new Achievement(new GreenfootImage("WristDamage-GreyedAchievement.png"), 0, wd_FULL);
+    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 0, 20);
+    public Achievement wdc = new Achievement(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 0, wdc_FULL);
     
     /**
      * Constructor for objects of class Achievements.
@@ -38,21 +45,8 @@ public class Achievements extends World
     }
     
     public void prepare(){
-        int width = 400;
-        int height = 280;
-        addAchievements();
-        for(String key: map.keySet()){
-            GreenfootImage im = new GreenfootImage(key,60,Color.WHITE,Color.BLACK);
-            GreenfootImage img = map.get(key);
-            Picture im1 = new Picture(im);
-            Picture img1 = new Picture(img);
-            addObject(im1,width,height);
-            addObject(img1,width+200,height);
-            height += 120;
-        }
         //Cover all of the achievements with the greyed out version
         addObject(mfw, 239, 188);
-        
         addObject(wn, 239, 301);
         addObject(lw, 239, 410);
         addObject(bbu, 239, 516);
@@ -64,6 +58,7 @@ public class Achievements extends World
         addObject(ss, 626, 627);
         addObject(wdc,1080, 630);
         
+        addAchievements();
         
     }
     public void act(){
@@ -81,14 +76,25 @@ public class Achievements extends World
         int j = Game.boardCounter.getScore();
         int m = Game.wordLength;
         int n = Game.numOfWords;
+               
+        //When the player has completed an achievement, the greyed out version gets deleted
+        //to show the lit up version underneath
         if(i >= 1){
             removeObject(mfw);
         }
         if(i >= 5){
             removeObject(wn);
         }
+        else
+        {
+            wn.setProgress(i);
+        }
         if(i >= 8){
             removeObject(lw);
+        }
+        else
+        {
+            lw.setProgress(i);
         }
         if(j >= 1){
             removeObject(bbu);
@@ -96,8 +102,16 @@ public class Achievements extends World
         if(j >= 3){
             removeObject(sbe);
         }
+        else
+        {
+            sbe.setProgress(j);
+        }
         if(j >= 3){
             removeObject(bm);
+        }
+        else
+        {
+            bm.setProgress(i);
         }
         if(m == 1)
         {
@@ -107,9 +121,25 @@ public class Achievements extends World
         {
             removeObject(dw);
         }
+        else
+        {
+            dw.setProgress(i);
+        }
         if(n > 26)
         {
             removeObject(wd);
+        }
+        else
+        {
+            wd.setProgress(i);
+        }
+        if(j >= 15)
+        {
+            removeObject(wdc);
+        }
+        else
+        {
+            wdc.setProgress(j);
         }
     }
     
