@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Pointer here.
+ * The pointer class points to the button selected
  * 
  * @author (your name) 
  * @version (a version number or a date)

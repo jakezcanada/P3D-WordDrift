@@ -20,8 +20,9 @@ public class TitleScreen extends World
     private Button instructionsButton = new Button(new GreenfootImage("InstructionsButton-1.png"), getHeight()/9, 3.8);
     private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
     private Button exitScreen = new Button(new GreenfootImage("Exit Screen.png"), getHeight(), 1.77);
-    private Button crown = new Button(new GreenfootImage("Crown.png"), getHeight()/10, 1);
-
+    
+    //Game timer(how much time the game is played)
+    public static SimpleTimer timer = new SimpleTimer();
     //Background music and sound effects
     public static GreenfootSound bgm = new GreenfootSound("WordDrift Music.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
@@ -36,6 +37,7 @@ public class TitleScreen extends World
     {
         // Create a new world with 1280x720 cells with a cell size of 1x1 pixels
         super(1280, 720, 1, false);
+        timer.mark();
         prepare();
     }
     
@@ -53,7 +55,6 @@ public class TitleScreen extends World
         removeObject(achievementsButton);
         removeObject(instructionsButton);
         removeObject(exitButton);
-        removeObject(crown);
         
         playButton = new Button(new GreenfootImage("PlayButton" + ((option == 1 ) ? "-2" : "-1") + ".png"), getHeight()/3, 4);
         achievementsButton = new Button(new GreenfootImage("AchievementsButton" + ((option == 2 ) ? "-2" : "-1") + ".png"), getHeight()/9, 3.8);
@@ -62,17 +63,13 @@ public class TitleScreen extends World
         
         addObject(playButton, getWidth()/2, getHeight()/2);
         addObject(achievementsButton, getWidth()/5, getHeight()*4/5);
-        if (option == 2) {
-            addObject(crown, getWidth()/5-170, getHeight()*4/5-60);
-        } else {
-            addObject(crown, getWidth()/5-155, getHeight()*4/5-47);
-        }
         addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
         addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
 
 
     }
     
+    //Allows player to interact with buttons
     public void act(){
         if(Greenfoot.mouseClicked(playButton)) Greenfoot.setWorld(new Game());
         if(Greenfoot.mouseClicked(achievementsButton)) Greenfoot.setWorld(new Achievements());
