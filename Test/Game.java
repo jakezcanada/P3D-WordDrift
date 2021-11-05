@@ -2,7 +2,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 import java.lang.Math.*;
 /**
- * Write a description of class Game here.
+ * This is the main class where the game is coded.
+ * The data structures (Arrays,ArrayLists,HashMaps)are contained here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -23,10 +24,11 @@ public class Game extends World{
     // Word Counter and Board Counter
     public static Counter counter = new Counter();
     public static Counter boardCounter = new Counter();
-    // ArrayList of solved words
+    // ArrayList of solved words,scores of words/boards
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> wordCheck = new ArrayList<Integer>();
     private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
+    //HashMaps  that map a key(the score of the counter) to a value(achievement)
     private HashMap<Integer,GreenfootImage> boardAchievements = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> wordAchievements = new HashMap<Integer,GreenfootImage>();
     private Button backtomenu = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
@@ -383,33 +385,20 @@ public class Game extends World{
         
         if(!wordCheck.contains(w) && wordAchievements.containsKey(w)){
                 Slide s = new Slide(wordAchievements.get(w));
-                addObject(s, 640, 100);
+                addObject(s, 640, 60);
                 Greenfoot.delay(50);
         }
         wordCheck.add(w);
         if(!boardcheck.contains(x) && boardAchievements.containsKey(x)){
                 Slide s = new Slide(boardAchievements.get(x));
-                addObject(s, 640, 100);
+                addObject(s, 640, 60);
                 Greenfoot.delay(50);
         }
         boardcheck.add(x);
-        if(wordLength==1){
-            Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
-        if(wordLength > 13){
-            Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
-        if(numOfWords > 26){
-            Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
-            addObject(s, 640, 100);
-            Greenfoot.delay(50);
-        }
+        
     }
 
+    //Takes the player back to the titlescreen
     public void transition(){
         hasWon = true;
         GreenfootImage img = new GreenfootImage("Win Screen.png");

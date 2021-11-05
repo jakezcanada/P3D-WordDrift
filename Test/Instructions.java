@@ -1,7 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Instructions here.
+ * This is the class that displays the instructions when the player
+ * presses on the instructions button on the titlescreen
  * 
  * @author (your name) 
  * @version (a version number or a date)
