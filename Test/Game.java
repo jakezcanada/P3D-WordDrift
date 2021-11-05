@@ -102,17 +102,17 @@ public class Game extends World{
         // Check Achievements
         if(wordLength==1){
             Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
-            addObject(s, 1050, 680);
+            addObject(s, 200, 60);
             Greenfoot.delay(50);
         }
         if(wordLength > 13){
             Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
-            addObject(s, 1050, 680);
+            addObject(s, 200, 60);
             Greenfoot.delay(50);
         }
         if(numOfWords >= 17){
             Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
-            addObject(s, 1050, 680);
+            addObject(s, 200, 60);
             Greenfoot.delay(50);
         }
 
@@ -417,7 +417,8 @@ public class Game extends World{
         }
         return true;
     }
-
+    
+    //Check if the player got any new achievements
     private void checkAchievements()
     {
         int w = counter.getScore();
@@ -425,13 +426,13 @@ public class Game extends World{
 
         if(!wordCheck.contains(w) && wordAchievements.containsKey(w)){
                 Slide s = new Slide(wordAchievements.get(w));
-                addObject(s, 640, 60);
+                addObject(s, 200, 60);
                 Greenfoot.delay(50);
         }
         wordCheck.add(w);
         if(!boardcheck.contains(x) && boardAchievements.containsKey(x)){
                 Slide s = new Slide(boardAchievements.get(x));
-                addObject(s, 640, 60);
+                addObject(s, 200, 60);
                 Greenfoot.delay(50);
         }
         boardcheck.add(x);
@@ -444,6 +445,7 @@ public class Game extends World{
         }
     }
 
+    //When the player finishes a board, transition screen pops up
     public void transition(){
         hasWon = true;
         GreenfootImage img = new GreenfootImage("Win Screen.png");
