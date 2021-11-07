@@ -156,13 +156,13 @@ public class Game extends World{
     public void act(){
         setPaintOrder(Game.class, Particle.class);
         if(!hasPaused && !hasWon){
-            showText("Press ENTER to pause", 200,670);
+            showText("Press SPACE to pause", 200,670);
         }
         // Add counter
         addObject(counter, 1080, 100);
         
 
-        if(Greenfoot.isKeyDown("enter") && !pause && !hasWon){
+        if(Greenfoot.isKeyDown("space") && !pause && !hasWon){
             removeObjects(getObjects(null));
             pauseOption = 1;
             drawPauseMenu();
