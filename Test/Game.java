@@ -103,17 +103,14 @@ public class Game extends World{
         if(wordLength==1){
             Slide s = new Slide(new GreenfootImage("Trivial-PopUp.png"));
             addObject(s, 200, 60);
-            Greenfoot.delay(50);
         }
         if(wordLength > 13){
             Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
             addObject(s, 200, 60);
-            Greenfoot.delay(50);
         }
         if(numOfWords >= 17){
             Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
             addObject(s, 200, 60);
-            Greenfoot.delay(50);
         }
 
         // Fill selected with 0
@@ -128,18 +125,24 @@ public class Game extends World{
                 TitleScreen.click.play();
                 counter.add();
             }    
-            solvedwords.add(selectedStr);
+            
             for(int i = 0; i < selected.length; i++){
                 board.get(i).get(selected[i]).solved = true;
-                spawnParticles(offSet+blockSize*i, getHeight()/2);
+                if(!solvedwords.contains(selectedStr)){
+                    spawnParticles(offSet+blockSize*i, getHeight()/2);
+                }    
             }
             List<Actor> actors = getObjects(null);
             actors.removeAll(getObjects(Particle.class));
             removeObjects(actors);
             drawBoard();
-            for(int i = 0; i < selected.length; i++){
-                spawnParticles(offSet+blockSize*i, getHeight()/2);
-            }
+            if(!solvedwords.contains(selectedStr)){
+                for(int i = 0; i < selected.length; i++){
+                    spawnParticles(offSet+blockSize*i, getHeight()/2);
+                }
+            }   
+            
+            solvedwords.add(selectedStr);
         }else{
             List<Actor> actors = getObjects(null);
             actors.removeAll(getObjects(Particle.class));
@@ -203,19 +206,26 @@ public class Game extends World{
                         TitleScreen.click.play();
                         counter.add();
                     }    
-                    solvedwords.add(selectedStr);
+                    
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
-                        spawnParticles(offSet+blockSize*i, getHeight()/2);
+                        if(!solvedwords.contains(selectedStr)){
+                            spawnParticles(offSet+blockSize*i, getHeight()/2);
+                        }    
                     }
                     List<Actor> actors = getObjects(null);
                     actors.removeAll(getObjects(Particle.class));
                     removeObjects(actors);
                     drawBoard();
-                    for(int i = 0; i < selected.length; i++){
-                        spawnParticles(offSet+blockSize*i, getHeight()/2);
-                    }
-                }else{
+                    if(!solvedwords.contains(selectedStr)){
+                        for(int i = 0; i < selected.length; i++){
+                            spawnParticles(offSet+blockSize*i, getHeight()/2);
+                        }
+                    }   
+                    
+                    solvedwords.add(selectedStr);
+                }
+                else{
                     List<Actor> actors = getObjects(null);
                     actors.removeAll(getObjects(Particle.class));
                     removeObjects(actors);
@@ -237,18 +247,24 @@ public class Game extends World{
                         TitleScreen.click.play();
                         counter.add();
                     }    
-                    solvedwords.add(selectedStr);
+                    
                     for(int i = 0; i < selected.length; i++){
                         board.get(i).get(selected[i]).solved = true;
-                        spawnParticles(offSet+blockSize*i, getHeight()/2);
+                        if(!solvedwords.contains(selectedStr)){
+                            spawnParticles(offSet+blockSize*i, getHeight()/2);
+                        }    
                     }
                     List<Actor> actors = getObjects(null);
                     actors.removeAll(getObjects(Particle.class));
                     removeObjects(actors);
                     drawBoard();
-                    for(int i = 0; i < selected.length; i++){
-                        spawnParticles(offSet+blockSize*i, getHeight()/2);
-                    }
+                    if(!solvedwords.contains(selectedStr)){
+                        for(int i = 0; i < selected.length; i++){
+                            spawnParticles(offSet+blockSize*i, getHeight()/2);
+                        }
+                    }   
+                    
+                    solvedwords.add(selectedStr);
                 }else{
                     List<Actor> actors = getObjects(null);
                     actors.removeAll(getObjects(Particle.class));
@@ -427,13 +443,11 @@ public class Game extends World{
         if(!wordCheck.contains(w) && wordAchievements.containsKey(w)){
                 Slide s = new Slide(wordAchievements.get(w));
                 addObject(s, 200, 60);
-                Greenfoot.delay(50);
         }
         wordCheck.add(w);
         if(!boardcheck.contains(x) && boardAchievements.containsKey(x)){
                 Slide s = new Slide(boardAchievements.get(x));
                 addObject(s, 200, 60);
-                Greenfoot.delay(50);
         }
         boardcheck.add(x);
         

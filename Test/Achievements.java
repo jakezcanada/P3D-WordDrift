@@ -87,14 +87,14 @@ public class Achievements extends World
         }
         else
         {
-            wn.setProgress(i);
+            //wn.setProgress(i);
         }
         if(i >= 8){
             removeObject(lw);
         }
         else
         {
-            lw.setProgress(i);
+            //lw.setProgress(i);
         }
         if(j >= 1){
             removeObject(bbu);
@@ -104,14 +104,14 @@ public class Achievements extends World
         }
         else
         {
-            sbe.setProgress(j);
+            //sbe.setProgress(j);
         }
         if(j >= 3){
             removeObject(bm);
         }
         else
         {
-            bm.setProgress(i);
+            //bm.setProgress(i);
         }
         if(m == 1)
         {
@@ -123,7 +123,7 @@ public class Achievements extends World
         }
         else
         {
-            dw.setProgress(i);
+            //dw.setProgress(i);
         }
         if(n > 26)
         {
@@ -131,7 +131,7 @@ public class Achievements extends World
         }
         else
         {
-            wd.setProgress(i);
+            //wd.setProgress(i);
         }
         if(j >= 15)
         {
@@ -139,13 +139,13 @@ public class Achievements extends World
         }
         else
         {
-            wdc.setProgress(j);
+            //wdc.setProgress(j);
         }
         if(TitleScreen.timer.millisElapsed() > 1200000){
             removeObject(ss);
         } 
         else{
-            ss.setProgress(TitleScreen.timer.millisElapsed());
+            //ss.setProgress(TitleScreen.timer.millisElapsed());
         }    
     }
     

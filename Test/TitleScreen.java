@@ -78,10 +78,24 @@ public class TitleScreen extends World
     
     //Allows player to interact with buttons
     public void act(){
-        if(Greenfoot.mouseClicked(playButton)) Greenfoot.setWorld(new Game());
-        if(Greenfoot.mouseClicked(achievementsButton)) Greenfoot.setWorld(new Achievements());
-        if(Greenfoot.mouseClicked(instructionsButton)) Greenfoot.setWorld(new Instructions());
-        if(Greenfoot.mouseClicked(exitButton)) Greenfoot.stop();
+        if(Greenfoot.mouseClicked(playButton)) {
+            click.play();
+            Greenfoot.setWorld(new Game());
+        }
+        if(Greenfoot.mouseClicked(achievementsButton)) {
+            click.play(); 
+            Greenfoot.setWorld(new Achievements());
+        }
+        if(Greenfoot.mouseClicked(instructionsButton)) {
+            click.play(); 
+            Greenfoot.setWorld(new Instructions());
+        }
+        if(Greenfoot.mouseClicked(exitButton)) {
+            click.play();
+            addObject(exitScreen, getWidth()/2+50, getHeight()/2+15);
+            bgm.pause();
+            Greenfoot.stop();
+        }
         if((Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && !isDown){
             if(option == 1){
                 if(Greenfoot.isKeyDown("down")){
