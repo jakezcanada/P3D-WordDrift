@@ -24,6 +24,7 @@ public class Achievement extends Actor
         total = theTotal;
     }
     
+    //Draws the progress bar
     private GreenfootImage progressBar(int progress, int total)
     {
         double percentReached = progress/(double)total;
@@ -39,6 +40,7 @@ public class Achievement extends Actor
         return bar;
     }
     
+    //Updates the progress
     public void setProgress(int prog)
     {
         progress = prog;
@@ -46,7 +48,7 @@ public class Achievement extends Actor
     
     public void act() 
     {
-        // Add your action code here.
+        // Draws the prgress bar
         ach.setColor(Color.GRAY);
         ach.fillRect(97, 60, BAR_LENGTH, BAR_HEIGHT);
         ach.drawImage(progressBar(progress, total), 97, 60);

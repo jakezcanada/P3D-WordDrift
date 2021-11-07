@@ -16,6 +16,7 @@ public class Achievements extends World
     private final int dw_FULL = 13;
     private final int wd_FULL = 17;
     private final int wdc_FULL = 15;
+    private boolean gainedTrivial = false;
     
     //Greyed Out Achievements
     public Achievement mfw = new Achievement(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 0, 1);
@@ -45,7 +46,7 @@ public class Achievements extends World
     }
     
     public void prepare(){
-        //Cover all of the achievements with the greyed out version
+        //Cover all of the achievements in the background with the greyed out version
         addObject(mfw, 239, 188);
         addObject(wn, 239, 301);
         addObject(lw, 239, 410);
@@ -58,6 +59,7 @@ public class Achievements extends World
         addObject(ss, 626, 627);
         addObject(wdc,1080, 630);
         
+        //Show the latest updated achievements
         addAchievements();
         
     }
@@ -76,7 +78,7 @@ public class Achievements extends World
         int j = Game.boardCounter.getScore();
         int m = Game.wordLength;
         int n = Game.numOfWords;
-               
+                       
         //When the player has completed an achievement, the greyed out version gets deleted
         //to show the lit up version underneath
         if(i >= 1){
@@ -111,9 +113,9 @@ public class Achievements extends World
         }
         else
         {
-            bm.setProgress(i);
+            bm.setProgress(j);
         }
-        if(m == 1)
+        if(gainedTrivial)
         {
             removeObject(t);
         }
