@@ -28,7 +28,7 @@ public class Achievements extends World
     public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 0, 1);
     public Achievement dw = new Achievement(new GreenfootImage("DeathWish-GreyedAchievement.png"), 0, dw_FULL);
     public Achievement wd = new Achievement(new GreenfootImage("WristDamage-GreyedAchievement.png"), 0, wd_FULL);
-    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 0, 20);
+    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 0, 1200000);
     public Achievement wdc = new Achievement(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 0, wdc_FULL);
     
     /**
@@ -89,14 +89,14 @@ public class Achievements extends World
         }
         else
         {
-            wn.setProgress(i);
+            //wn.setProgress(i);
         }
         if(i >= lw_FULL){
             removeObject(lw);
         }
         else
         {
-            lw.setProgress(i);
+            //lw.setProgress(i);
         }
         if(j >= 1){
             removeObject(bbu);
@@ -106,7 +106,7 @@ public class Achievements extends World
         }
         else
         {
-            sbe.setProgress(j);
+            //sbe.setProgress(j);
         }
         if(j >= bm_FULL){
             removeObject(bm);
@@ -125,7 +125,7 @@ public class Achievements extends World
         }
         else
         {
-            dw.setProgress(i);
+            //dw.setProgress(i);
         }
         if(n == wd_FULL)
         {
@@ -137,8 +137,14 @@ public class Achievements extends World
         }
         else
         {
-            wdc.setProgress(j);
+            //wdc.setProgress(j);
         }
+        if(TitleScreen.timer.millisElapsed() > 1200000){
+            removeObject(ss);
+        } 
+        else{
+            //ss.setProgress(TitleScreen.timer.millisElapsed());
+        }    
     }
     
 }

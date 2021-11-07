@@ -22,9 +22,10 @@ public class Particle extends Actor
     //Create a new particle
     public Particle()
     {
+        GreenfootImage img = new GreenfootImage("e.png");
         dx = rand.nextGaussian() * FORCE;
         dy = rand.nextGaussian() * FORCE;
-        setImage("e.png");
+        setImage(img);
         imgNum = (imgNum + 1) % 2;
     }
 

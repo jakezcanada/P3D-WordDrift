@@ -19,13 +19,14 @@ public class Instructions extends World
 
     public Instructions()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        //display instructions and back to menu button 
         super(1280, 720, 1);
         addObject(new Button(new GreenfootImage("WordDrift Instructions.png"), 720, 1.78), getWidth()/2, getHeight()/2);
         addObject(exitInstructionsButton, getWidth()/2, getHeight()*9/10);
     }
     
     public void act(){
+        //exit to menu button functionality
         if(Greenfoot.isKeyDown("enter")) {
             cursor.play();
             Greenfoot.setWorld(new TitleScreen());
