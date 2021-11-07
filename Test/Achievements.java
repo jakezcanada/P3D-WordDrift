@@ -14,7 +14,7 @@ public class Achievements extends World
     private final int sbe_FULL = 3;
     private final int bm_FULL = 5;
     private final int dw_FULL = 13;
-    private final int wd_FULL = 26;
+    private final int wd_FULL = 17;
     private final int wdc_FULL = 15;
     
     //Greyed Out Achievements
@@ -82,14 +82,14 @@ public class Achievements extends World
         if(i >= 1){
             removeObject(mfw);
         }
-        if(i >= 5){
+        if(i >= wn_FULL){
             removeObject(wn);
         }
         else
         {
             wn.setProgress(i);
         }
-        if(i >= 8){
+        if(i >= lw_FULL){
             removeObject(lw);
         }
         else
@@ -99,14 +99,14 @@ public class Achievements extends World
         if(j >= 1){
             removeObject(bbu);
         }
-        if(j >= 3){
+        if(j >= sbe_FULL){
             removeObject(sbe);
         }
         else
         {
             sbe.setProgress(j);
         }
-        if(j >= 3){
+        if(j >= bm_FULL){
             removeObject(bm);
         }
         else
@@ -117,7 +117,7 @@ public class Achievements extends World
         {
             removeObject(t);
         }
-        if(m > 13)
+        if(m > dw_FULL)
         {
             removeObject(dw);
         }
@@ -125,15 +125,11 @@ public class Achievements extends World
         {
             dw.setProgress(i);
         }
-        if(n > 26)
+        if(n == wd_FULL)
         {
             removeObject(wd);
         }
-        else
-        {
-            wd.setProgress(i);
-        }
-        if(j >= 15)
+        if(j >= wdc_FULL)
         {
             removeObject(wdc);
         }
