@@ -40,7 +40,6 @@ public class Game extends World{
     private boolean isDown = false;
     private boolean pause = false;
     private boolean hasWon = false;
-    private boolean hasPaused = false;
     private int pauseOption = 1;
     private Random r = new Random();
     // selected will keep track of which Block is selected in each column
@@ -127,8 +126,10 @@ public class Game extends World{
 
     public void act(){
         
-        if(!hasPaused && !hasWon){
+        if(!pause && !hasWon){
             showText("Press SPACE to pause", 200,670);
+        }else{
+            showText(null, 200,670);
         }
         // Add counter
         addObject(counter, 1080, 100);
@@ -407,6 +408,10 @@ public class Game extends World{
     //When the player finishes a board, transition screen pops up
     public void transition(){
         hasWon = true;
+        List<Actor> actors = getObjects(null);
+        actors.removeAll(getObjects(Slide.class));
+        actors.removeAll(getObjects(Particle.class));
+        removeObjects(actors);
         GreenfootImage img = new GreenfootImage("Win Screen.png");
         Picture p = new Picture(img);
         addObject(p,getWidth()/2+50, getHeight()/2+15);
