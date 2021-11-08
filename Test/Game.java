@@ -19,7 +19,7 @@ public class Game extends World{
     }
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     // Set particle count per letter
-    private int NUM_OF_PARTICLES = 20;
+    private int NUM_OF_PARTICLES = 25;
     // Word length size is max at 17
     public static int wordLength;
     public static int numOfWords;
@@ -52,6 +52,9 @@ public class Game extends World{
     private int selectedColumn = 0;
     public Game(){    
         super(1280, 720, 1);
+        
+        setPaintOrder(Particle.class, Slide.class, Picture.class);
+        
         // Ask user for word length
         while(true){
             String input = Greenfoot.ask("How long would you like the words to be? (1 - 20 characters)");
@@ -119,42 +122,11 @@ public class Game extends World{
         }
 
         // Draw board
-        String selectedStr = selectedString(board, selected);
-        if(words.contains(selectedStr)){
-            if(!solvedwords.contains(selectedStr)){
-                TitleScreen.click.play();
-                counter.add();
-            }    
-            
-            for(int i = 0; i < selected.length; i++){
-                board.get(i).get(selected[i]).solved = true;
-                if(!solvedwords.contains(selectedStr)){
-                    spawnParticles(offSet+blockSize*i, getHeight()/2);
-                }    
-            }
-            List<Actor> actors = getObjects(null);
-            actors.removeAll(getObjects(Particle.class));
-            removeObjects(actors);
-            drawBoard();
-            if(!solvedwords.contains(selectedStr)){
-                for(int i = 0; i < selected.length; i++){
-                    spawnParticles(offSet+blockSize*i, getHeight()/2);
-                }
-            }   
-            
-            solvedwords.add(selectedStr);
-        }else{
-            List<Actor> actors = getObjects(null);
-            actors.removeAll(getObjects(Particle.class));
-            removeObjects(actors);
-            drawBoard();
-        }
-        addObject(counter, 1080, 100);
-        checkAchievements();
+        draw();
     }
 
     public void act(){
-        setPaintOrder(Game.class, Particle.class);
+        
         if(!hasPaused && !hasWon){
             showText("Press SPACE to pause", 200,670);
         }
@@ -180,7 +152,45 @@ public class Game extends World{
 
         if(Greenfoot.mouseClicked(backtomenu)) Greenfoot.setWorld(new TitleScreen());
     }
-
+    
+    public void draw(){
+        String selectedStr = selectedString(board, selected);
+        if(words.contains(selectedStr)){
+            if(!solvedwords.contains(selectedStr)){
+                TitleScreen.click.play();
+                counter.add();
+            }    
+            
+            for(int i = 0; i < selected.length; i++){
+                board.get(i).get(selected[i]).solved = true;
+                if(!solvedwords.contains(selectedStr)){
+                    spawnParticles(offSet+blockSize*i, getHeight()/2);
+                }    
+            }
+            List<Actor> actors = getObjects(null);
+            actors.removeAll(getObjects(Slide.class));
+            actors.removeAll(getObjects(Achievement.class));
+            removeObjects(actors);
+            drawBoard();
+            if(!solvedwords.contains(selectedStr)){
+                for(int i = 0; i < selected.length; i++){
+                    spawnParticles(offSet+blockSize*i, getHeight()/2);
+                }
+            }   
+            
+            solvedwords.add(selectedStr);
+        }else{
+            List<Actor> actors = getObjects(null);
+            actors.removeAll(getObjects(Slide.class));
+            actors.removeAll(getObjects(Particle.class));
+            removeObjects(actors);
+            drawBoard();
+        }
+        
+        addObject(counter, 1080, 100);
+        checkAchievements();
+    }
+    
     public void checkShiftInput(){
         if((Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down")) && !isDown){
             TitleScreen.cursor.play();
@@ -188,6 +198,7 @@ public class Game extends World{
                 selectedColumn++;
                 //System.out.println(Arrays.toString(selected));
                 List<Actor> actors = getObjects(null);
+                actors.removeAll(getObjects(Slide.class));
                 actors.removeAll(getObjects(Particle.class));
                 removeObjects(actors);
                 drawBoard();
@@ -195,88 +206,22 @@ public class Game extends World{
                 selectedColumn--;
                 //System.out.println(Arrays.toString(selected));
                 List<Actor> actors = getObjects(null);
+                actors.removeAll(getObjects(Slide.class));
                 actors.removeAll(getObjects(Particle.class));
                 removeObjects(actors);
                 drawBoard();
             }else if(Greenfoot.isKeyDown("up") && selected[selectedColumn] < board.get(selectedColumn).size()-1){
                 selected[selectedColumn]++;
-                String selectedStr = selectedString(board, selected);
-                if(words.contains(selectedStr)){
-                    if(!solvedwords.contains(selectedStr)){
-                        TitleScreen.click.play();
-                        counter.add();
-                    }    
-                    
-                    for(int i = 0; i < selected.length; i++){
-                        board.get(i).get(selected[i]).solved = true;
-                        if(!solvedwords.contains(selectedStr)){
-                            spawnParticles(offSet+blockSize*i, getHeight()/2);
-                        }    
-                    }
-                    List<Actor> actors = getObjects(null);
-                    actors.removeAll(getObjects(Particle.class));
-                    removeObjects(actors);
-                    drawBoard();
-                    if(!solvedwords.contains(selectedStr)){
-                        for(int i = 0; i < selected.length; i++){
-                            spawnParticles(offSet+blockSize*i, getHeight()/2);
-                        }
-                    }   
-                    
-                    solvedwords.add(selectedStr);
-                }
-                else{
-                    List<Actor> actors = getObjects(null);
-                    actors.removeAll(getObjects(Particle.class));
-                    removeObjects(actors);
-                    drawBoard();
-                }
-                addObject(counter, 1080, 100);
-                checkAchievements();
+                draw();
                 // Send back to home screen after game completion
                 if(checkBoard()){
-                    boardCounter.add();
-                    checkAchievements();
                     transition();
                 }
             }else if(Greenfoot.isKeyDown("down") && selected[selectedColumn] > 0){
                 selected[selectedColumn]--;
-                String selectedStr = selectedString(board, selected);
-                if(words.contains(selectedStr)){
-                    if(!solvedwords.contains(selectedStr)){
-                        TitleScreen.click.play();
-                        counter.add();
-                    }    
-                    
-                    for(int i = 0; i < selected.length; i++){
-                        board.get(i).get(selected[i]).solved = true;
-                        if(!solvedwords.contains(selectedStr)){
-                            spawnParticles(offSet+blockSize*i, getHeight()/2);
-                        }    
-                    }
-                    List<Actor> actors = getObjects(null);
-                    actors.removeAll(getObjects(Particle.class));
-                    removeObjects(actors);
-                    drawBoard();
-                    if(!solvedwords.contains(selectedStr)){
-                        for(int i = 0; i < selected.length; i++){
-                            spawnParticles(offSet+blockSize*i, getHeight()/2);
-                        }
-                    }   
-                    
-                    solvedwords.add(selectedStr);
-                }else{
-                    List<Actor> actors = getObjects(null);
-                    actors.removeAll(getObjects(Particle.class));
-                    removeObjects(actors);
-                    drawBoard();
-                }
-                addObject(counter, 1080, 100);
-                checkAchievements();
+                draw();
                 // Send back to home screen after game completion
                 if(checkBoard()){
-                    boardCounter.add();
-                    checkAchievements();
                     transition();
                 }
             }
@@ -321,7 +266,7 @@ public class Game extends World{
                 }
             }
             isDown = true;
-        }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("down")) && isDown){
+        }else if(!(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("enter")) && isDown){
             isDown = false;
         }
     }
@@ -466,5 +411,7 @@ public class Game extends World{
         Picture p = new Picture(img);
         addObject(p,getWidth()/2+50, getHeight()/2+15);
         addObject(backtomenu,950,525);
+        boardCounter.add();
+        checkAchievements();
     }
 }
