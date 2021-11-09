@@ -12,7 +12,6 @@ public class TitleScreen extends World
     private int option = 1;
     private int numOfOptions = 4;
     private boolean isDown = false;
-    private int[] imgWidth = new int[numOfOptions];
     
     //Buttons on the titlescreen
     private Button playButton = new Button(new GreenfootImage("PlayButton-1.png"), getHeight()/3, 4);
@@ -20,16 +19,19 @@ public class TitleScreen extends World
     private Button instructionsButton = new Button(new GreenfootImage("InstructionsButton-1.png"), getHeight()/9, 3.8);
     private Button exitButton = new Button(new GreenfootImage("ExitButton-1.png"), getHeight()/9, 3.8);
     private Button exitScreen = new Button(new GreenfootImage("Exit Screen.png"), getHeight(), 1.77);
+    
     private Button crown = new Button(new GreenfootImage("Crown.png"), getHeight()/10, 1);
     
     //Game timer(how much time the game is played)
     public static SimpleTimer timer = new SimpleTimer();
+    
     //Background music and sound effects
     public static GreenfootSound bgm = new GreenfootSound("WordDrift Music.mp3");
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
     public static GreenfootSound click = new GreenfootSound("Click.mp3");
     private Button musicOn = new Button(new GreenfootImage("SoundOn.png"), getHeight()/10, 1);
     private Button musicOff = new Button(new GreenfootImage("SoundOff.png"), getHeight()/10, 1);
+    
     /**
      * Constructor for objects of class TitleScreen.
      * 
@@ -72,15 +74,13 @@ public class TitleScreen extends World
         }
         addObject(instructionsButton, getWidth()/2, getHeight()*4/5);
         addObject(exitButton, getWidth()*4/5, getHeight()*4/5);
-
-
     }
     
     //Allows player to interact with buttons
     public void act(){
         if(Greenfoot.mouseClicked(playButton)) {
             click.play();
-            Greenfoot.setWorld(new Game());
+            Greenfoot.setWorld(new PreGame());
         }
         if(Greenfoot.mouseClicked(achievementsButton)) {
             click.play(); 
@@ -123,7 +123,7 @@ public class TitleScreen extends World
                 click.play();
                 switch(option){
                     case 1: // Play
-                        Greenfoot.setWorld(new Game());
+                        Greenfoot.setWorld(new PreGame());
                         break;
                     case 2: // Achievements
                         Greenfoot.setWorld(new Achievements());

@@ -9,7 +9,6 @@ import java.lang.Math.*;
  * @version (a version number or a date)
  */
 
-//feature suggestions: timed score achievement and unorthodox solution achievement
 public class Game extends World{
 
     // Inner class to store the properties of each tile/block
@@ -24,15 +23,19 @@ public class Game extends World{
     public static int wordLength;
     public static int numOfWords;
 
+    // Border spacing variables
     private int blockSize;
     private int offSet;
+    
     // Word Counter and Board Counter
     public static Counter counter = new Counter();
     public static Counter boardCounter = new Counter();
+    
     // ArrayList of solved words,scores of words/boards
     private ArrayList<String> solvedwords = new ArrayList<String>();
     private ArrayList<Integer> wordCheck = new ArrayList<Integer>();
     private ArrayList<Integer> boardcheck = new ArrayList<Integer>();
+    
     //HashMaps  that map a key(the score of the counter) to a value(achievement)
     private HashMap<Integer,GreenfootImage> boardAchievements = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> wordAchievements = new HashMap<Integer,GreenfootImage>();
@@ -42,6 +45,7 @@ public class Game extends World{
     private boolean hasWon = false;
     private int pauseOption = 1;
     private Random r = new Random();
+    
     // selected will keep track of which Block is selected in each column
     private int[] selected;
     // Create the game board
@@ -49,36 +53,16 @@ public class Game extends World{
     private ArrayList<ArrayList<Block>> board;
     // selectedColumn will keep track of, who could've guesses, the selected column...
     private int selectedColumn = 0;
-    public Game(){    
+    public Game(int theNumOfWords, int theWordLength){    
         super(1280, 720, 1);
         
         setPaintOrder(Particle.class, Slide.class, Picture.class);
         
-        // Ask user for word length
-        while(true){
-            String input = Greenfoot.ask("How long would you like the words to be? (1 - 20 characters)");
-            if(isNumeric(input)){
-                int temp = (int) Double.parseDouble(input);
-                if(temp > 0 && temp < 21){
-                    wordLength = temp;
-                    break;
-                }
-            }
-        }
+        // Set word length
+        wordLength = theWordLength;
 
-        // Ask user for num of words
-        while(true){
-            //if there are not enough words, there will be as many as possible
-            String input = Greenfoot.ask("How many words would you like? (under 8 is recommended)");
-            if(isNumeric(input)){
-                int temp = (int) Double.parseDouble(input);
-                if(temp > 1){
-                    numOfWords = temp;
-                    break;
-                }
-
-            }
-        }
+        // Set num of words
+        numOfWords = theNumOfWords; 
 
         // Initialize variables
         words = Reader.read(wordLength);
@@ -110,7 +94,7 @@ public class Game extends World{
             Slide s = new Slide(new GreenfootImage("DeathWish-PopUp.png"));
             addObject(s, 200, 60);
         }
-        if(numOfWords >= 17){
+        if(wordLength >= 17){
             Slide s = new Slide(new GreenfootImage("WristDamage-PopUp.png"));
             addObject(s, 200, 60);
         }
