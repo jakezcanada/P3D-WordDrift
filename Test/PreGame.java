@@ -61,7 +61,7 @@ public class PreGame extends World
             TitleScreen.click.play();
             addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
             Greenfoot.delay(1);
-            Greenfoot.setWorld(new Game(numOfWords, r.nextInt(5-1) + 5));
+            Greenfoot.setWorld(new Game(numOfWords, r.nextInt(5-1) + 1));
         }
         if(Greenfoot.mouseClicked(mediumButton)) {
             TitleScreen.click.play();
@@ -102,7 +102,7 @@ public class PreGame extends World
                     case 1: // easy
                         addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
                         Greenfoot.delay(1);
-                        Greenfoot.setWorld(new Game(numOfWords, r.nextInt(5-1) + 5));
+                        Greenfoot.setWorld(new Game(numOfWords, r.nextInt(5-1) + 1));
                         break;
                     case 2: // medium
                         addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
