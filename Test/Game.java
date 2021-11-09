@@ -39,7 +39,7 @@ public class Game extends World{
     //HashMaps  that map a key(the score of the counter) to a value(achievement)
     private HashMap<Integer,GreenfootImage> boardAchievements = new HashMap<Integer,GreenfootImage>();
     private HashMap<Integer,GreenfootImage> wordAchievements = new HashMap<Integer,GreenfootImage>();
-    private Button backtomenu = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
+    private Button backtomenu = new Button(new GreenfootImage("PMenuBackToMenu-1.png"), getHeight()/15, 3.8);
     private boolean isDown = false;
     private boolean pause = false;
     private boolean hasWon = false;
@@ -56,14 +56,18 @@ public class Game extends World{
     public Game(int theNumOfWords, int theWordLength){    
         super(1280, 720, 1);
         
-        setPaintOrder(Particle.class, Slide.class, Picture.class);
+        setPaintOrder(Particle.class, Slide.class);
         
         // Set word length
         wordLength = theWordLength;
 
         // Set num of words
         numOfWords = theNumOfWords; 
-
+        
+        if(wordLength == 1){
+            numOfWords = 2;
+        }
+        
         // Initialize variables
         words = Reader.read(wordLength);
         selected = new int[wordLength];
@@ -267,6 +271,10 @@ public class Game extends World{
         for(int i = 0; i < numOfWords; i++){
             // Get a word and split
             String strT = words.get(r.nextInt(words.size()));
+            if(wordLength == 1){
+                strT = words.get(i);
+            }
+            
             String[] strArr = strT.split("");
             // If the section doesn't already have said letter, add it
             for(int j = 0; j < wordLength; j++){
@@ -399,7 +407,7 @@ public class Game extends World{
         GreenfootImage img = new GreenfootImage("Win Screen.png");
         Picture p = new Picture(img);
         addObject(p,getWidth()/2+50, getHeight()/2+15);
-        addObject(backtomenu,950,525);
+        addObject(backtomenu,950,625);
         boardCounter.add();
         checkAchievements();
     }
