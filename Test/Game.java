@@ -154,7 +154,7 @@ public class Game extends World{
             }
             List<Actor> actors = getObjects(null);
             actors.removeAll(getObjects(Slide.class));
-            actors.removeAll(getObjects(Achievement.class));
+            actors.removeAll(getObjects(Particle.class));
             removeObjects(actors);
             drawBoard();
             if(!solvedwords.contains(selectedStr)){
