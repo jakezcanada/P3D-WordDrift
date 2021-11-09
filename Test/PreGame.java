@@ -56,20 +56,29 @@ public class PreGame extends World
 
     //Allows player to interact with buttons
     public void act(){
+
         if(Greenfoot.mouseClicked(easyButton)) {
             TitleScreen.click.play();
+            addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+            Greenfoot.delay(1);
             Greenfoot.setWorld(new Game(numOfWords, r.nextInt(5-1) + 5));
         }
         if(Greenfoot.mouseClicked(mediumButton)) {
             TitleScreen.click.play();
+            addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+            Greenfoot.delay(1);
             Greenfoot.setWorld(new Game(numOfWords, r.nextInt(7-4) + 4));
         }
         if(Greenfoot.mouseClicked(hardButton)) {
             TitleScreen.click.play(); 
+            addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+            Greenfoot.delay(1);
             Greenfoot.setWorld(new Game(numOfWords, r.nextInt(10-6) + 6));
         }
         if(Greenfoot.mouseClicked(insanityButton)) {
             TitleScreen.click.play(); 
+            addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+            Greenfoot.delay(1);
             Greenfoot.setWorld(new Game(numOfWords, r.nextInt(18-10) + 10));
         }
         if((Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("enter")) && !isDown){
@@ -90,16 +99,24 @@ public class PreGame extends World
             if(Greenfoot.isKeyDown("enter")){
                 TitleScreen.click.play();
                 switch(option){
-                    case 1: // Play
+                    case 1: // easy
+                        addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+                        Greenfoot.delay(1);
                         Greenfoot.setWorld(new Game(numOfWords, r.nextInt(5-1) + 5));
                         break;
-                    case 2: // Achievements
+                    case 2: // medium
+                        addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+                        Greenfoot.delay(1);
                         Greenfoot.setWorld(new Game(numOfWords, r.nextInt(7-4) + 4));
                         break;
-                    case 3: // Instructions
+                    case 3: // hard
+                        addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+                        Greenfoot.delay(1);
                         Greenfoot.setWorld(new Game(numOfWords, r.nextInt(10-6) + 6));
                         break;
-                    case 4: // Exit
+                    case 4: // insanity
+                        addObject(new Button(new GreenfootImage("please wait text.png"), getHeight()/20, 11.6363636), getWidth()/2, getHeight()/2+200);
+                        Greenfoot.delay(1);
                         Greenfoot.setWorld(new Game(numOfWords, r.nextInt(18-10) + 10));
                         break;
                 }
