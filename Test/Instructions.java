@@ -15,7 +15,7 @@ public class Instructions extends World
      * 
      */
     public static GreenfootSound cursor = new GreenfootSound("Cursor.mp3");
-    private Button exitInstructionsButton = new Button(new GreenfootImage("BackToMenu-2.png"), getHeight()/15, 3.8);
+    private Button exitInstructionsButton = new Button(new GreenfootImage("BackToMenu-1.png"), getHeight()/15, 3.8);
 
     public Instructions()
     {    
