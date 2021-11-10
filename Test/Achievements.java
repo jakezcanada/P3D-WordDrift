@@ -13,10 +13,11 @@ public class Achievements extends World
     private final int lw_FULL = 8;
     private final int sbe_FULL = 3;
     private final int bm_FULL = 5;
-    private final int dw_FULL = 13;
-    private final int wd_FULL = 17;
+    private final int t_FULL = 8;
+    private final int dw_FULL = 10;
+    private final int wd_FULL = 600000;
+    private final int ss_FULL = 1200000;
     private final int wdc_FULL = 15;
-    private boolean gainedTrivial = false;
     
     //Greyed Out Achievements
     public Achievement mfw = new Achievement(new GreenfootImage("MyFirstWord-GreyedAchievement.png"), 0, 1);
@@ -28,7 +29,7 @@ public class Achievements extends World
     public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 0, 1);
     public Achievement dw = new Achievement(new GreenfootImage("DeathWish-GreyedAchievement.png"), 0, dw_FULL);
     public Achievement wd = new Achievement(new GreenfootImage("WristDamage-GreyedAchievement.png"), 0, wd_FULL);
-    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 0, 1200000);
+    public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 0, ss_FULL);
     public Achievement wdc = new Achievement(new GreenfootImage("WordDriftChampion-GreyedAchievement.png"), 0, wdc_FULL);
     
     /**
@@ -89,14 +90,14 @@ public class Achievements extends World
         }
         else
         {
-            //wn.setProgress(i);
+            wn.setProgress(i);
         }
         if(i >= lw_FULL){
             removeObject(lw);
         }
         else
         {
-            //lw.setProgress(i);
+            lw.setProgress(i);
         }
         if(j >= 1){
             removeObject(bbu);
@@ -106,7 +107,7 @@ public class Achievements extends World
         }
         else
         {
-            //sbe.setProgress(j);
+            sbe.setProgress(j);
         }
         if(j >= bm_FULL){
             removeObject(bm);
@@ -115,21 +116,28 @@ public class Achievements extends World
         {
             bm.setProgress(j);
         }
-        if(gainedTrivial)
-        {
+        if(j >= t_FULL){
             removeObject(t);
         }
-        if(m > dw_FULL)
+        else
+        {
+            bm.setProgress(j);
+        }
+        if(j >= dw_FULL)
         {
             removeObject(dw);
         }
         else
         {
-            //dw.setProgress(i);
+            dw.setProgress(j);
         }
-        if(n == wd_FULL)
+        if(TitleScreen.timer.millisElapsed() > 600000)
         {
             removeObject(wd);
+        }
+        else
+        {
+            ss.setProgress(TitleScreen.timer.millisElapsed());
         }
         if(j >= wdc_FULL)
         {
@@ -137,13 +145,13 @@ public class Achievements extends World
         }
         else
         {
-            //wdc.setProgress(j);
+            wdc.setProgress(j);
         }
         if(TitleScreen.timer.millisElapsed() > 1200000){
             removeObject(ss);
         } 
         else{
-            //ss.setProgress(TitleScreen.timer.millisElapsed());
+            ss.setProgress(TitleScreen.timer.millisElapsed());
         }    
     }
     
