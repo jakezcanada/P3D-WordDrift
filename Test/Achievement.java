@@ -32,7 +32,7 @@ public class Achievement extends Actor
         if(percentReached == 0.0){
             bar = new GreenfootImage(1, BAR_HEIGHT);
         }else{
-            bar = new GreenfootImage((int) (BAR_LENGTH * percentReached), BAR_HEIGHT);
+            bar = new GreenfootImage((int) (BAR_LENGTH * percentReached) + 1, BAR_HEIGHT);
         }
             
         bar.setColor(Color.WHITE);
