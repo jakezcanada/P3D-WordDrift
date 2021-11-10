@@ -39,7 +39,8 @@ public class Particle extends Actor
     //Move the particle
     public void act()
     {
-        if (getY() >= getWorld().getHeight() - 1) {
+        if (getY() >= getWorld().getHeight() - 3) {
+            y = getWorld().getHeight() - 3;
             dy = -1 * (dy * Math.random());
         }
         else if (isAtEdge()) {
