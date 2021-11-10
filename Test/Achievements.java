@@ -26,7 +26,7 @@ public class Achievements extends World
     public Achievement bbu = new Achievement(new GreenfootImage("BigBrainUser-GreyedAchievement.png"), 0, 1);
     public Achievement sbe = new Achievement(new GreenfootImage("SpellingBeeExpert-GreyedAchievement.png"), 0, sbe_FULL);
     public Achievement bm = new Achievement(new GreenfootImage("BoardMaster-GreyedAchievement.png"), 0, bm_FULL);
-    public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 0, 1);
+    public Achievement t = new Achievement(new GreenfootImage("Trivial-GreyedAchievement.png"), 0, t_FULL);
     public Achievement dw = new Achievement(new GreenfootImage("DeathWish-GreyedAchievement.png"), 0, dw_FULL);
     public Achievement wd = new Achievement(new GreenfootImage("WristDamage-GreyedAchievement.png"), 0, wd_FULL);
     public Achievement ss = new Achievement(new GreenfootImage("StarStudent-GreyedAchievement.png"), 0, ss_FULL);
@@ -121,7 +121,7 @@ public class Achievements extends World
         }
         else
         {
-            bm.setProgress(j);
+            t.setProgress(j);
         }
         if(j >= dw_FULL)
         {
@@ -131,13 +131,13 @@ public class Achievements extends World
         {
             dw.setProgress(j);
         }
-        if(TitleScreen.timer.millisElapsed() > 600000)
+        if(TitleScreen.timer.millisElapsed() > wd_FULL)
         {
             removeObject(wd);
         }
         else
         {
-            ss.setProgress(TitleScreen.timer.millisElapsed());
+            wd.setProgress(TitleScreen.timer.millisElapsed());
         }
         if(j >= wdc_FULL)
         {
@@ -147,12 +147,12 @@ public class Achievements extends World
         {
             wdc.setProgress(j);
         }
-        if(TitleScreen.timer.millisElapsed() > 1200000){
+        if(TitleScreen.timer.millisElapsed() > ss_FULL){
             removeObject(ss);
         } 
         else{
             ss.setProgress(TitleScreen.timer.millisElapsed());
-        }    
+        }
     }
     
 }
