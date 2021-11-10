@@ -113,11 +113,12 @@ public class Game extends World{
     }
 
     public void act(){
-        
+        Button pauseText = new Button(new GreenfootImage("pause text.png"), getHeight()/20, 11.6363636);
+
         if(!pause && !hasWon){
-            showText("Press SPACE to pause", 200,670);
+            addObject(pauseText,200,670);
         }else{
-            showText(null, 200,670);
+            removeObject(pauseText);
         }
         // Add counter
         addObject(counter, 1080, 100);
